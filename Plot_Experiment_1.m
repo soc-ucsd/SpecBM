@@ -50,18 +50,6 @@ semilogy(abs((Out_Primal_0_3.Obj(xrange)-Optimal.Cost)/Optimal.Cost),"-",'Color'
 semilogy(abs((Out_Primal_0_5.Obj(xrange)-Optimal.Cost)/Optimal.Cost),"-",'Color',COLORS(8,:),'LineWidth',lw); 
 semilogy(abs((Out_Primal_0_10.Obj(xrange)-Optimal.Cost)/Optimal.Cost),"-",'Color',COLORS(9,:),'LineWidth',lw); 
 
-% semilogy(abs((-Out_Dual_0_3.Obj-Optimal.Cost)/Optimal.Cost),"-.",'LineWidth',lw);
-% hold on 
-% semilogy(abs((-Out_Dual_0_5.Obj-Optimal.Cost)/Optimal.Cost),"-.",'LineWidth',lw); 
-% semilogy(abs((-Out_Dual_0_10.Obj-Optimal.Cost)/Optimal.Cost),"-.",'LineWidth',lw); 
-% semilogy(abs((Out_Primal_2_1.Obj-Optimal.Cost)/Optimal.Cost),"--",'LineWidth',lw); 
-% semilogy(abs((Out_Primal_4_1.Obj-Optimal.Cost)/Optimal.Cost),"--",'LineWidth',lw); 
-% semilogy(abs((Out_Primal_9_1.Obj-Optimal.Cost)/Optimal.Cost),"--",'LineWidth',lw); 
-% semilogy(abs((Out_Primal_0_3.Obj-Optimal.Cost)/Optimal.Cost),"-",'LineWidth',lw); 
-% semilogy(abs((Out_Primal_0_5.Obj-Optimal.Cost)/Optimal.Cost),"-",'LineWidth',lw); 
-% semilogy(abs((Out_Primal_0_10.Obj-Optimal.Cost)/Optimal.Cost),"-",'LineWidth',lw); 
-
-
 legend('D(0,3)','D(0,5)','D(0,10)','P(2,1)','P(4,1)','P(9,1)',...
        'P(0,3)','P(0,5)','P(0,10)','NumColumns',3);
 xlabel('Iteration','interpreter','latex');
