@@ -1,7 +1,8 @@
 function prob = SedumiToMosek_Latest(At,b,c,K)
     %Convert data in Sedumi Standard Primal form to Mosek 
     %Update: 04/17/2022
-    %Author: Feng-Yi, Liao
+    %Author: Feng-Yi Liao & Yang Zheng
+    %        SOC Lab @UC San Diego
     %*******Important********
     %We consider the following 5 cones 
     %1. free(K.f)
