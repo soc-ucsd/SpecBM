@@ -1,8 +1,6 @@
+%Author: Feng-Yi Liao & Yang Zheng
+%        SOC Lab @UC San Diego
 clc; clear; close;
-addpath('D:\Matlab\linspecer\');
-addpath('D:\Matlab\Professional Plots\STANDARDS\')
-PS = PLOT_STANDARDS();
-
 
 %parameter setting 
 width  = 8;     % Width in inches

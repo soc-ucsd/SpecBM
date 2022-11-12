@@ -1,3 +1,6 @@
+%Author: Feng-Yi Liao & Yang Zheng
+%        SOC Lab @UC San Diego
+
 clc; clear; close;
 filename_result = 'examples\Result\n100m100dr97\n100m100dr97-result-test5.mat';
 load(filename_result);
@@ -22,14 +25,14 @@ N           = 9;%number of colors
 C           = linspecer(N);
      
 COLORS = [0.4660, 0.6740, 0.1880;
-    0.3010, 0.7450, 0.9330;
-    0.6350, 0.0780, 0.1840;
-    0, 0.4470, 0.7410;
-    0.8500, 0.3250, 0.0980;
-    0.4940, 0.1840, 0.5560;
-    1, 0, 0;
-    0, 1, 0;
-    0, 0, 1];
+            0.3010, 0.7450, 0.9330;
+            0.6350, 0.0780, 0.1840;
+            0, 0.4470, 0.7410;
+            0.8500, 0.3250, 0.0980;
+            0.4940, 0.1840, 0.5560;
+            1, 0, 0;
+            0, 1, 0;
+            0, 0, 1];
 
 figure();
 pos = get(gcf, 'Position');

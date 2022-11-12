@@ -4,7 +4,8 @@
 % The penalty parameter is chosen by the fact that we already know the optimal solution 
 % Penal term is chosen as tr(X^*)*2+1 and tr(Z^*)*2+1
 
-%Author: Feng-Yi Liao
+%Author: Feng-Yi Liao & Yang Zheng
+%        SOC Lab @UC San Diego
 
 clc;clear;
 addpath('.\packages\SBM-Primal');
