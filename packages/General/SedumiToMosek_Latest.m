@@ -3,6 +3,7 @@ function prob = SedumiToMosek_Latest(At,b,c,K)
     %Update: 04/17/2022
     %Author: Feng-Yi Liao & Yang Zheng
     %        SOC Lab @UC San Diego
+
     %*******Important********
     %We consider the following 5 cones 
     %1. free(K.f)
@@ -14,8 +15,7 @@ function prob = SedumiToMosek_Latest(At,b,c,K)
     %*******Important********
     %Please make sure that the problem data for PSD variable is symmetric!!
     %Otherwise, it will generate an unexpected result
-   
-    %Auther: Feng-Yi, Liao
+
 
     if isfield(K,'f')
         NumOfFree = K.f;
