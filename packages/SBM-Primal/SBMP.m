@@ -1,8 +1,9 @@
 function Out = SBMP(A_sdp,b_sdp,c_sdp,K_sdp,opts)
-    %Spectral Bundle Method - Primal Formulation
-    %Author : Feng-Yi Liao
-    %Update : 11/10/2022
-    %Note   : We dentoe Xnext as X_{t+1} in the paper 
+% Spectral Bundle Method - Primal Formulation
+% Author : Feng-Yi Liao & Yang Zheng
+%          SOC Lab @UC San Diego
+% Update : 11/10/2022
+% Note   : We dentoe Xnext as X_{t+1} in the paper 
     
     
     [Paras,OutOption] = Initialize(A_sdp,b_sdp,c_sdp,K_sdp,opts);
@@ -28,10 +29,10 @@ function Out = SBMP(A_sdp,b_sdp,c_sdp,K_sdp,opts)
     Pt                = eig_vec(:,1:opts.MaxCols);  %transformation matrix
     Wt                = reshape(eig_vec(:,1)*eig_vec(:,1)',[],1);
     
-    Obj               = []; 
-    DualFeasi         = []; 
-    PrimalFeasi       = []; 
-    Gap               = [];
+    Obj               = zeros(opts.Maxiter,1); 
+    DualFeasi         = zeros(opts.Maxiter,1); 
+    PrimalFeasi       = zeros(opts.Maxiter,1); 
+    Gap               = zeros(opts.Maxiter,1);
     NullCount         = 0;
     
     AlgorithmTime = tic;
@@ -46,8 +47,8 @@ function Out = SBMP(A_sdp,b_sdp,c_sdp,K_sdp,opts)
         
         %We do not record the first iteration if the initial point is not feasible
         if opts.feasible || iter>1
-            DualFeasi = [DualFeasi,Dfeasi];
-            Gap = [Gap,gap];
+            DualFeasi(iter) = Dfeasi;
+            Gap(iter) = gap;
         end
         
         
@@ -77,8 +78,8 @@ function Out = SBMP(A_sdp,b_sdp,c_sdp,K_sdp,opts)
             fprintf('f1-f2 = %.6f',EstimatedDrop);
             break;
         elseif EstimatedDrop < Paras.epislon && iter >1
-            Obj         = [Obj,f1];
-            PrimalFeasi = [PrimalFeasi,eig_val(I(1),I(1))];
+            Obj(iter)         = f1;
+            PrimalFeasi(iter) = eig_val(I(1),I(1));
             break;
         end
         
@@ -126,18 +127,18 @@ function Out = SBMP(A_sdp,b_sdp,c_sdp,K_sdp,opts)
         [eig_vec,eig_val] = eig(reshape(-X_next,Paras.n,[]));
         [~,I]             = sort(diag(eig_val),'descend');
         if opts.feasible || iter>1
-            PrimalFeasi   = [PrimalFeasi,-eig_val(I(1),I(1))];
+            PrimalFeasi(iter) = -eig_val(I(1),I(1));
         end
         
         eig_vec = eig_vec(:,I);
         Vt      = eig_vec(:,1:Paras.EvecCurrent);   
         [Pt,~]  = qr([Pt*Q1,Vt],0);
         if opts.feasible || iter>1
-            Obj = [Obj,f1];
+            Obj(iter) = f1;
         end
         
         if iter > 1 && mod(iter,OutOption.step) == 0                 
-           fprintf('%5d | %7.2e | %7.2e | %9.2e | %9.2e | %8.2e | %8.2e | %8.2e |\n',...
+           fprintf('%5d  %7.2e  %7.2e  %9.2e  %9.2e  %8.2e  %8.2e  %8.2e \n',...
            iter,f1,EstimatedDrop,PrimalFeasi(iter-1),DualFeasi(iter-1), Gap(iter-1),Paras.alpha,toc(AlgorithmTime));
         end
     end
@@ -166,14 +167,16 @@ function [Paras,OutOption] = Initialize(At_sdp,b_sdp,c_sdp,K_sdp,opts)
     
     Paras.ml          = 0.01;
     Paras.mu          = 0.7;
-    Paras.alphamin   = 10^-5; %for adapative 
-    Paras.alphamax   = 1000;  %for adapative 
+    Paras.alphamin    = 10^-5; %for adapative 
+    Paras.alphamax    = 1000;  %for adapative 
     
 %     Paras.n_new            = 2*Paras.dx;
 %     Paras.NumOfVar_new     = Paras.n_new^2;
 %     Paras.NumOfVar_new_sym = Paras.n_new*(Paras.n_new+1)/2;
 %     Paras.NumOfP           = nchoosek(Paras.n/Paras.dx,2);%Number of Blocks
     
+    [At_sdp,b_sdp,c_sdp,K_sdp,opts] = checkInputs(At_sdp,b_sdp,c_sdp,K_sdp,opts);
+
     Paras.b_sdp            = b_sdp;
     Paras.At_sdp           = At_sdp;
     Paras.c_sdp            = c_sdp;
@@ -204,8 +207,12 @@ function [Paras,OutOption] = Initialize(At_sdp,b_sdp,c_sdp,K_sdp,opts)
     %Output option
     OutOption.verbose = 1;
     OutOption.K       = K_sdp;
-    OutOption.step    = 5;
-    OutOption.method   = 'SBMP';
+    OutOption.step    = 10;
+    OutOption.method  = 'SBMP';
+    OutOption.m       = opts.m;
+    OutOption.rho     = opts.rho;
+    OutOption.past    = opts.EvecPast;
+    OutOption.current = opts.EvecCurrent;
     PrintHeader(proctime,OutOption);
 end
 

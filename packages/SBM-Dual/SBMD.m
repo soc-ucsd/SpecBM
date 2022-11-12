@@ -142,6 +142,8 @@ function [Paras,OutOption] = Initialize(At_sdp,b_sdp,c_sdp,K_sdp,opts)
 %     Paras.NumOfVar_new_sym = Paras.n_new*(Paras.n_new+1)/2;
 %     Paras.NumOfP = nchoosek(Paras.n/Paras.dx,2);%Number of Blocks
     
+    [At_sdp,b_sdp,c_sdp,K_sdp,opts] = checkInputs(At_sdp,b_sdp,c_sdp,K_sdp,opts);
+
     Paras.b_sdp         = b_sdp;
     Paras.At_sdp        = At_sdp;
     Paras.c_sdp         = c_sdp;
@@ -169,10 +171,14 @@ function [Paras,OutOption] = Initialize(At_sdp,b_sdp,c_sdp,K_sdp,opts)
     
     
     %Output option
-    OutOption.verbose  = 1;
-    OutOption.K        = K_sdp;
-    OutOption.step     = 5;
-    OutOption.method   = 'SBMD';
+    OutOption.verbose = 1;
+    OutOption.K       = K_sdp;
+    OutOption.step    = 10;
+    OutOption.method  = 'SBMP';
+    OutOption.m       = opts.m;
+    OutOption.rho     = opts.rho;
+    OutOption.past    = opts.EvecPast;
+    OutOption.current = opts.EvecCurrent;
     PrintHeader(proctime,OutOption);
 end
 
