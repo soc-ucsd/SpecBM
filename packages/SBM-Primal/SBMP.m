@@ -1,9 +1,9 @@
 function Out = SBMP(A_sdp,b_sdp,c_sdp,K_sdp,opts)
-% Spectral Bundle Method - Primal Formulation
-% Author : Feng-Yi Liao & Yang Zheng
-%          SOC Lab @UC San Diego
-% Update : 11/10/2022
-% Note   : We denote Xnext as X_{t+1} in the paper 
+    % Spectral Bundle Method - Primal Formulation
+    % Author : Feng-Yi Liao & Yang Zheng
+    %          SOC Lab @UC San Diego
+    % Update : 11/10/2022
+    % Note   : We denote Xnext as X_{t+1} in the paper 
     
     
     [Paras,OutOption] = Initialize(A_sdp,b_sdp,c_sdp,K_sdp,opts);
