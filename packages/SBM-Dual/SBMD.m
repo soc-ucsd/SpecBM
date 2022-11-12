@@ -1,9 +1,9 @@
-function out = SBMD(A_sdp,b_sdp,c_sdp,K_sdp,opts)
+function Out = SBMD(A_sdp,b_sdp,c_sdp,K_sdp,opts)
     %Spectral Bundle Method - Dual Formulation
-    %Author: Feng-Yi Liao
+    %Author: Feng-Yi Liao & Yang Zheng
+    %        SOC Lab @UC San Diego
     %Update: 11/10/2022
     %Note: We use x denote y in the SBMD
-    
     
     [Paras,OutOption] = Initialize(A_sdp,b_sdp,c_sdp,K_sdp,opts);
    
@@ -109,10 +109,10 @@ function out = SBMD(A_sdp,b_sdp,c_sdp,K_sdp,opts)
             iter,f1,EstimatedDrop,PrimalFeasi(iter),DualFeasi(iter), Gap(iter),Paras.alpha,toc(AlgorithmTime));
         end
     end
-    out.Obj         = Obj;
-    out.PrimalFeasi = PrimalFeasi;
-    out.DualFeasi   = DualFeasi;
-    out.Gap         = Gap;
+    Out.Obj         = Obj;
+    Out.PrimalFeasi = PrimalFeasi;
+    Out.DualFeasi   = DualFeasi;
+    Out.Gap         = Gap;
 end
 
 function [Paras,OutOption] = Initialize(At_sdp,b_sdp,c_sdp,K_sdp,opts)
@@ -174,7 +174,7 @@ function [Paras,OutOption] = Initialize(At_sdp,b_sdp,c_sdp,K_sdp,opts)
     OutOption.verbose = 1;
     OutOption.K       = K_sdp;
     OutOption.step    = 10;
-    OutOption.method  = 'SBMP';
+    OutOption.method  = 'SBMD';
     OutOption.m       = opts.m;
     OutOption.rho     = opts.rho;
     OutOption.past    = opts.EvecPast;
