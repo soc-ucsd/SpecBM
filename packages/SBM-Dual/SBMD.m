@@ -1,9 +1,9 @@
 function Out = SBMD(A_sdp,b_sdp,c_sdp,K_sdp,opts)
     %Spectral Bundle Method - Dual Formulation
-    %Author: Feng-Yi Liao & Yang Zheng
-    %        SOC Lab @UC San Diego
-    %Update: 11/10/2022
-    %Note: We use x denote y in the SBMD
+    %Authors: Feng-Yi Liao & Yang Zheng
+    %         SOC Lab @UC San Diego
+    %Update : 11/10/2022
+    %Note   : We use x denote y in the SBMD
     
     [Paras,OutOption] = Initialize(A_sdp,b_sdp,c_sdp,K_sdp,opts);
    
@@ -105,7 +105,7 @@ function Out = SBMD(A_sdp,b_sdp,c_sdp,K_sdp,opts)
         Obj               = [Obj,f1];        
         
         if  mod(iter,OutOption.step) == 0 
-            fprintf('%5d | %7.2e | %7.2e | %9.2e | %9.2e | %8.2e | %8.2e | %8.2e |\n',...
+            fprintf('%5d  %7.2e  %7.2e  %9.2e  %9.2e  %8.2e  %8.2e  %8.2e \n',...
             iter,f1,EstimatedDrop,PrimalFeasi(iter),DualFeasi(iter), Gap(iter),Paras.alpha,toc(AlgorithmTime));
         end
     end

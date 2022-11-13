@@ -1,6 +1,6 @@
 function [Wstar,X_next,Gammastar,Sstar,PrimalFeasibility,gap] = Direction_QP_Dual(omegat,Paras,Wt,Pt)   
-    %Author: Feng-Yi Liao & Yang Zheng
-    %        SOC Lab @UC San Diego
+    %Authors: Feng-Yi Liao & Yang Zheng
+    %         SOC Lab @UC San Diego
     %Wt is a fixed atoms
     %Pt is the transformation matrix
         

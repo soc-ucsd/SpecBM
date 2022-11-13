@@ -1,6 +1,6 @@
 function [Wstar,X_next,Gammastar,Sstar,DualFeasibility,gap] = Direction_QP_Primal(omegat,Paras,Wt,Pt,feasible)
-    %Author: Feng-Yi Liao & Yang Zheng
-    %        SOC Lab @UC San Diego
+    %Authors: Feng-Yi Liao & Yang Zheng
+    %         SOC Lab @UC San Diego
     %Wt is a fixed atoms
     %Pt is the transformation matrix
     %feasible means b-A(\Omega) = 0. 
