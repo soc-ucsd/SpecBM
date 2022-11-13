@@ -1,8 +1,4 @@
-function [At,b,c,K,opts] = checkInputs(At,b,c,K,opts)
-    %  Author : Feng-Yi Liao & Yang Zheng
-    %           SOC Lab @UC San Diego
-    
-    
+function [At,b,c,K,opts] = checkInputs(At,b,c,K,opts) 
     %sparsify and vectorize everything
     %At = sparse(At); 
     %b = sparse(b(:));
