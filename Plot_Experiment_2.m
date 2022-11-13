@@ -1,5 +1,5 @@
-%Author: Feng-Yi Liao & Yang Zheng
-%        SOC Lab @UC San Diego
+%Authors: Feng-Yi Liao & Yang Zheng
+%         SOC Lab @UC San Diego
 
 clc; clear; close;
 filename_result = 'examples\Result\n100m100dr97\n100m100dr97-result-test5.mat';

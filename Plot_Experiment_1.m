@@ -1,5 +1,5 @@
-%Author: Feng-Yi Liao & Yang Zheng
-%        SOC Lab @UC San Diego
+%Authors: Feng-Yi Liao & Yang Zheng
+%         SOC Lab @UC San Diego
 clc; clear; close;
 
 %parameter setting 

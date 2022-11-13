@@ -1,6 +1,6 @@
 function [IndSym,IndDiag,IndOffDiag,ShrinkIndDiag,ShrinkIndOffDiag,IndOffDiagCounter] = SymmetricIndices(n)
-    %Author: Feng-Yi Liao & Yang Zheng
-    %        SOC Lab @UC San Diego
+    %Authors: Feng-Yi Liao & Yang Zheng
+    %         SOC Lab @UC San Diego
     %A is just a matrix variable
     A = ones(n);
     A = tril(A);
