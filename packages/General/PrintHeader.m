@@ -7,7 +7,11 @@ function PrintHeader(proctime,opts)
         [header,myline1,myline2] = Header();
         method = opts.method; % Set method to display
         fprintf(myline1)
-        fprintf('Spectral Bundle Method for Primal SDPs - v1.0\n')
+        if strcmpi(method,'SBMP')
+            fprintf('Spectral Bundle Method for Primal SDPs - v1.0\n')
+        elseif strcmpi(method,'SBMD')
+            fprintf('Spectral Bundle Method for Dual SDPs - v1.0\n')
+        end
         fprintf('Authors: F. Liao, Y. Zheng @SOC Lab \n')
         fprintf(myline1)
         fprintf('Initilization is done in %.4f seconds.      \n',proctime);
