@@ -4,8 +4,8 @@ function [At,b,c,K,opts] = checkInputs(At,b,c,K,opts)
     
     
     %sparsify and vectorize everything
-    At = sparse(At); 
-    b = sparse(b(:));
+    %At = sparse(At); 
+    %b = sparse(b(:));
     
     %check that only free, zero, non-negative, quadratic cone and SDP variables
     %are included
