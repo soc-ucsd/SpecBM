@@ -3,6 +3,11 @@ function [At,b,c,K,opts] = checkInputs(At,b,c,K,opts)
     %At = sparse(At); 
     %b = sparse(b(:));
     
+    %Check if opts.maxcols = opts.EvecPast + opts.EvecCurrent
+    if (~ (opts.MaxCols == opts.EvecPast + opts.EvecCurrent))
+        error('Number of eigenvectors do not match.');
+    end
+
     %check that only free, zero, non-negative, quadratic cone and SDP variables
     %are included
     if(~all(ismember(fieldnames(K),{'f','l','q','s'})))

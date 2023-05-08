@@ -1,10 +1,12 @@
-function [Wstar,X_next,Gammastar,Sstar,DualFeasibility,gap,y] = Direction_QP_Primal(omegat,Paras,Wt,Pt,feasible)
+function [Wstar,X_next,Gammastar,Sstar,DualFeasibility,DualFeasibility_free,gap,y,x_next] = Direction_QP_Primal_Free(omegat_free,omegat_sdp,Paras,Wt,Pt,feasible)
     %Authors: Feng-Yi Liao & Yang Zheng
     %         SOC Lab @UC San Diego
     %Wt is a fixed atoms
     %Pt is the transformation matrix
     %feasible means b-A(\Omega) = 0. 
-
+    %Consider free variables as well
+    %The two changes are Q_{33} and q_{3}
+    %But Q_{33} is pre-computed
     
     kronPtPt = kron(Pt,Pt);
     
@@ -22,17 +24,24 @@ function [Wstar,X_next,Gammastar,Sstar,DualFeasibility,gap,y] = Direction_QP_Pri
     Q13 = Q31.';
     Q23 = Q32.';
     
-    q1  = 2*Wt.'*(-Paras.c_sdp+Paras.alpha*omegat);
-    %q2  = 2*Paras.alpha*kron(Pt',Pt')*omegat-2*kron(Pt',Pt')*Paras.c_sdp;
-    %q2  = 2*Paras.alpha*kronPtPt'*omegat-2*kronPtPt'*Paras.c_sdp;
-    %q2  = 2*kronPtPt'*(Paras.alpha*omegat-Paras.c_sdp);
-    q2T = 2*(Paras.alpha*omegat-Paras.c_sdp).'*kronPtPt;
+    temp = 2*(-Paras.c_sdp+Paras.alpha*omegat_sdp);
+    q1   = Wt.'*temp;
+    q2T  = temp.'*kronPtPt;
     q2  = q2T.';
 
+%     q1   = 2*Wt.'*(-Paras.c_sdp+Paras.alpha*omegat_sdp);
+%     %q2  = 2*Paras.alpha*kron(Pt',Pt')*omegat-2*kron(Pt',Pt')*Paras.c_sdp;
+%     %q2  = 2*Paras.alpha*kronPtPt'*omegat-2*kronPtPt'*Paras.c_sdp;
+%     %q2  = 2*kronPtPt'*(Paras.alpha*omegat-Paras.c_sdp);
+%     q2T = 2*(Paras.alpha*omegat_sdp-Paras.c_sdp).'*kronPtPt;
+%     q2  = q2T.';
+
     if feasible
-        q3 = -2*(Paras.At_sdp*Paras.c_sdp);
+        %q3 = -2*(Paras.At_sdp*Paras.c_sdp+Paras.a*Paras.c0);
+        q3 = -2*(Paras.At*Paras.c);
     else
-        q3 = -2*(Paras.alpha*(Paras.b_sdp-Paras.At_sdp*omegat)+Paras.At_sdp*Paras.c_sdp);
+        %q3 = -2*(Paras.alpha*(Paras.b_sdp-Paras.At_sdp*omegat_sdp-Paras.a*omegat_free)+Paras.At_sdp*Paras.c_sdp+Paras.a*Paras.c0);
+        q3 = -2*(Paras.alpha*(Paras.b-Paras.At_sdp*omegat_sdp-Paras.At_free*omegat_free)+Paras.At*Paras.c);
     end
     
 %     M11 = Q11 - Q13*(Paras.AAT\(Q13'));
@@ -53,8 +62,8 @@ function [Wstar,X_next,Gammastar,Sstar,DualFeasibility,gap,y] = Direction_QP_Pri
    % M   = (M+M.')/2;
      
     if Paras.EvecPast == 0 && Paras.EvecCurrent == 1 && feasible
-         %we have closed for solution for this case, and we don't need to
-         %rely on MOSEK!!
+         %In this case, we have closed form solution, so we don't need to
+         %rely on solvers!!!
          m         = [m1;m2];  
          
          v = -inv(M)*m/2;
@@ -156,7 +165,7 @@ function [Wstar,X_next,Gammastar,Sstar,DualFeasibility,gap,y] = Direction_QP_Pri
        prob1     = SedumiToMosek_Latest(At,b,c,K);
        [~, res1] = mosekopt('minimize echo(0)', prob1);
        status    = res1.sol.itr.prosta;
-       if ~strcmp(status,'PRIMAL_AND_DUAL_FEASIBLE')
+       if (~strcmp(status,'UNKNOWN') && ~strcmp(status,'PRIMAL_AND_DUAL_FEASIBLE'))
           warning('infeasible');
           return;
        end
@@ -174,16 +183,27 @@ function [Wstar,X_next,Gammastar,Sstar,DualFeasibility,gap,y] = Direction_QP_Pri
 %         Wstar                          = Gammastar*Wt + reshape(Pt*Sstar*Pt.',[],1);
     end 
     
-     Wstar     = Gammastar*Wt + reshape(Pt*Sstar*Pt.',[],1);
-     y         = Paras.AAT_INV*(-q3/2-Gammastar*Q13.' - Q23'*reshape(Sstar,[],1));
-    
-    DualAffine      = Wstar-Paras.c_sdp+Paras.At_sdp.'*y;
-    
-    %improve numerical stability
-    DualAffine([Paras.XIndOffDiag,Paras.XIndOffDiagCounter]) = ...
-          1/2*(DualAffine([Paras.XIndOffDiag,Paras.XIndOffDiagCounter]) + DualAffine([Paras.XIndOffDiagCounter,Paras.XIndOffDiag]));
+    %numerical issue
+    if Gammastar< 0
+        Gammastar = 0;
+    end
 
-    X_next          = omegat + (DualAffine)/Paras.alpha;
-    DualFeasibility = norm(DualAffine,'fro')^2;
-    gap             = abs(Paras.b_sdp'*y - Paras.c_sdp'*X_next);
+%     issymmetric(Sstar)
+%     issymmetric(Pt*Sstar*Pt.')
+    Wstar     = Gammastar*Wt + reshape(Pt*Sstar*Pt.',[],1);
+    y         = Paras.AAT_INV*(-q3/2-Gammastar*Q13.' - Q23'*reshape(Sstar,[],1));
+    
+     
+    DualAffine_sdp      = Wstar-Paras.c_sdp+Paras.At_sdp.'*y;
+    DualAffine_free     = Paras.At_free.'*y-Paras.c_free;
+    
+    %improve numerical stability %very important!!!
+    DualAffine_sdp([Paras.XIndOffDiag,Paras.XIndOffDiagCounter]) = ...
+          1/2*(DualAffine_sdp([Paras.XIndOffDiag,Paras.XIndOffDiagCounter]) + DualAffine_sdp([Paras.XIndOffDiagCounter,Paras.XIndOffDiag]));
+
+    X_next          = omegat_sdp + (DualAffine_sdp)/Paras.alpha;
+    x_next          = omegat_free + (DualAffine_free)/Paras.alpha;
+    DualFeasibility = norm(DualAffine_sdp,'fro')^2;
+    DualFeasibility_free = norm(DualAffine_free)^2;
+    gap             = abs(Paras.b'*y - Paras.c_sdp.'*X_next-Paras.c_free.'*x_next);
 end

@@ -1,19 +1,60 @@
-function [Wstar,X_next,Gammastar,Sstar,PrimalFeasibility,gap] = Direction_QP_Dual(omegat,Paras,Wt,Pt)   
+function [Wstar,X_next,Gammastar,Sstar,PrimalFeasibility,gap] = Direction_QP_Dual_New(omegat,Paras,Wt,Pt) 
+    %%%%%%%%%%deprecated%%%%%%%%%%%%%%
     %Authors: Feng-Yi Liao & Yang Zheng
     %         SOC Lab @UC San Diego
     %Wt is a fixed atoms
     %Pt is the transformation matrix
         
-    G = -Paras.At.'*omegat;
-    G = G + Paras.c;
+    %G = -Paras.At_sdp'*omegat;
     
-    AW1        = Paras.At*Wt;
-    M11        = (AW1).'*(AW1);
-    kronPTPT   = kron(Pt',Pt');     
-    kronPTPTAT = kronPTPT*Paras.At.';
-    M21        = kronPTPTAT*AW1;
-    M22        = kronPTPTAT*kronPTPTAT.';
-    M22        = (M22+M22')/2;
+    AW1 = zeros(Paras.m,1);
+    G  = zeros(Paras.n^2,1);
+    for i = 1:length(Paras.At_sdp_nonzero.row) 
+        idx    = Paras.At_sdp_nonzero.idx(i);
+        row    = Paras.At_sdp_nonzero.row(i);
+        val    = Paras.At_sdp_nonzero.val(i);
+        G(idx) = G(idx) - val*omegat(row);
+        AW1(row) = AW1(row) + Paras.At_sdp(row,idx)*Wt(idx);
+    end
+    G = G + Paras.c_sdp;
+    
+    %AW1        = Paras.At_sdp*Wt;
+    M11        = (AW1)'*(AW1);
+    %kronPTPT   = kron(Pt',Pt');     
+    %kronPTPTAT = kronPTPT*Paras.At_sdp';
+    %M21        = kronPTPTAT*AW1;
+    
+    %M21        = zeros(Paras.MaxCols,1);
+    AAW1 = zeros(Paras.n^2,1);
+    for i = 1:length(Paras.At_sdp_nonzero.row) 
+        idx  = Paras.At_sdp_nonzero.idx(i);
+        row  = Paras.At_sdp_nonzero.row(i);
+        val    = Paras.At_sdp_nonzero.val(i);
+        AAW1(idx) = AAW1(idx) + val*AW1(row); 
+    end
+    M21        = vec(Pt'*mat(AAW1)*Pt);
+    %M21        = vec(Pt'*mat(Paras.At_sdp'*AW1)*Pt);
+    
+%    M22        = zeros(Paras.MaxCols^2);
+%     for i = 1:Paras.m
+%        v    = vec(Pt'*mat(Paras.At_sdp(i,:))*Pt);
+%        M22  = M22 + v*v';
+%     end
+    
+    Ptt = Pt';
+    V = zeros(Paras.MaxCols^2,Paras.m);
+    for i = 1:length(Paras.At_sdp_nonzero.row) 
+        idx  = Paras.At_sdp_nonzero.idx(i);
+        row  = Paras.At_sdp_nonzero.row(i);
+        Mrow = Paras.At_sdp_nonzero.Mrow(i);
+        Mcol = Paras.At_sdp_nonzero.Mcol(i); 
+        V(:,row) = V(:,row) + kron(Ptt(:,Mcol),Ptt(:,Mrow)); 
+    end
+    M22 = V*V';
+    
+    
+    %M22        = kronPTPTAT*kronPTPTAT';
+    %M22        = (M22+M22')/2;
     
     %for numerical stability
     minlambda = min(eig(M22));
@@ -21,16 +62,15 @@ function [Wstar,X_next,Gammastar,Sstar,PrimalFeasibility,gap] = Direction_QP_Dua
         M22   = M22-(minlambda-10^(-9))*eye(Paras.MaxCols^2);
     end
   
-    m1 = (-Paras.twoATb+2*Paras.alpha*G)'*Wt;
-    %m2 = vec(Pt'*mat(-Paras.twoAb+2*Paras.alpha*G)*Pt);
-    m2 = kronPTPT*(-Paras.twoATb+2*Paras.alpha*G);
-    M  = [M11,M21.';
+    m1 = (-Paras.twoAb+2*Paras.alpha*G)'*Wt;
+    m2 = vec(Pt'*mat(-Paras.twoAb+2*Paras.alpha*G)*Pt);
+    M  = [M11,M21';
          M21,M22];
-    M  = (M+M.')/2;
+    M  = (M+M')/2;
     [eig_vec,eig_val]  = eig(M) ;
     %just to avoid numerical error (complex number)
     eig_val(eig_val<0) = 0;
-    M05                = eig_vec*sqrt(eig_val)*eig_vec.'; %B = M^{1/2}
+    M05                = eig_vec*sqrt(eig_val)*eig_vec'; %B = M^{1/2}
     M05                = (M05+M05.')/2;
    
     %%%%%%%%%%%   VERY IMPORTANT!!!!!!!!!!!!   %%%%%%%%%%%%%%%%%%%%
@@ -62,7 +102,7 @@ function [Wstar,X_next,Gammastar,Sstar,PrimalFeasibility,gap] = Direction_QP_Dua
    prob1     = SedumiToMosek_Latest(At,b,c,K);
    [~, res1] = mosekopt('minimize echo(0)', prob1);
    status    = res1.sol.itr.prosta;
-   if (~strcmp(status,'UNKNOWN') && ~strcmp(status,'PRIMAL_AND_DUAL_FEASIBLE'))
+   if ~strcmp(status,'PRIMAL_AND_DUAL_FEASIBLE')
       warning('infeasible');
       return;
    end
@@ -74,14 +114,20 @@ function [Wstar,X_next,Gammastar,Sstar,PrimalFeasibility,gap] = Direction_QP_Dua
    Sstar                          = zeros(Paras.MaxCols);
    Sstar(Paras.IndicesPSD)        = xPSD;
    Sstar(Paras.IndOffDiagCounter) = Sstar(Paras.IndOffDiagPSD);
-   Wstar                          = Gammastar*Wt + reshape(Pt*Sstar*Pt.',[],1);    
+   Wstar                          = Gammastar*Wt + reshape(Pt*Sstar*Pt',[],1);    
     
   %improve numerical stability
     Wstar([Paras.XIndOffDiag,Paras.XIndOffDiagCounter]) = ...
           1/2*(Wstar([Paras.XIndOffDiag,Paras.XIndOffDiagCounter]) + Wstar([Paras.XIndOffDiagCounter,Paras.XIndOffDiag]));
     
-    PrimalAffine      = Paras.b-Paras.At*vec(Wstar);
+    PrimalAffine      = Paras.b_sdp;
+    for i = 1:length(Paras.At_sdp_nonzero.row) 
+        idx  = Paras.At_sdp_nonzero.idx(i);
+        row  = Paras.At_sdp_nonzero.row(i);
+        PrimalAffine(row) = PrimalAffine(row) - Paras.At_sdp(row,idx)*Wstar(idx);
+    end
+    %PrimalAffine      = Paras.b_sdp-Paras.At_sdp*vec(Wstar);
     X_next            = omegat + (PrimalAffine)/Paras.alpha;
     PrimalFeasibility = norm(PrimalAffine)^2;
-    gap               = abs(-Paras.b.'*X_next + Paras.c.'*reshape(Wstar,[],1));
+    gap               = Paras.b_sdp'*X_next - Paras.c_sdp'*reshape(Wstar,[],1);
 end
