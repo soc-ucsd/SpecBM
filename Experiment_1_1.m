@@ -28,8 +28,8 @@ opts.alpha          = 50; %does not matter for adaptive case
 opts.feasible       = false; 
 opts.adaptive       = true;
 opts.sparse         = false;
-opts.DynamicRho     = false;
-opts.DynamicMaxCols = false;
+opts.DynamicRho     = false; %useless but the currect version needs to keep it here
+opts.DynamicMaxCols = false; %useless but the currect version needs to keep it here
 
 %%%%%%%%%% [Primal] %%%%%%%%%%
 %We do not count the first iteration for SBMP
