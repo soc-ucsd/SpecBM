@@ -51,7 +51,7 @@ function prob = SedumiToMosek_Latest(At,b,c,K)
        K.s = [];
        NumOfPSD = 0;
     end
-    [r, res] = mosekopt('symbcon echo(0)');
+    %[r, res] = mosekopt('symbcon echo(0)');
 
     %==========================================
     LenFree   = NumOfFree;
@@ -77,6 +77,7 @@ function prob = SedumiToMosek_Latest(At,b,c,K)
         QUADSUB   = [1,K.q(1:end-1)]; %tricky step
         QUADSUB   = cumsum(QUADSUB);
         QUASDCONE = repmat(res.symbcon.MSK_CT_QUAD,1,NumOfQuad);
+        %QUASDCONE = repmat(0,1,NumOfQuad);
         start     = 1;
         Offset    = NumOfFree+LenNonneg; %% notice the difference with Rotated Second constraint
         for i = 1:NumOfQuad
@@ -95,7 +96,8 @@ function prob = SedumiToMosek_Latest(At,b,c,K)
         RQUADIDX   = zeros(1,LenRQuad);
         RQUADSUB   = [1,K.r(1:end-1)]; %tricky step
         RQUADSUB   = cumsum(RQUADSUB);      
-        RQUASDCONE = repmat(res.symbcon.MSK_CT_RQUAD,1,NumOfRQuad);%%
+        %RQUASDCONE = repmat(res.symbcon.MSK_CT_RQUAD,1,NumOfRQuad);%%
+        RQUASDCONE = repmat(1,1,NumOfRQuad);
         start      = 1;
         Offset     = NumOfFree+LenNonneg+NumOfQuad; %% notice the difference with Rotated Second constraint
         for i = 1:NumOfRQuad
