@@ -35,53 +35,53 @@ opts.alpha          = 50; %does not matter for adaptive case
 %%%%%%%%%% [Primal] %%%%%%%%%%
 %We do not count the first iteration for SBMP
 
-%     opts.Maxiter     = 201;
-%     opts.rho         = Optimal.TrZ*2+2;
-%     opts.MaxCols     = 2;
-%     opts.EvecPast    = 1;
-%     opts.EvecCurrent = 1;
-%     opts.solver      = "primal";
-%     Out_Primal_1_1   = SBM(At_sdp,b_sdp,c_sdp,K_sdp,opts);
-%  
-%     opts.Maxiter     = 201;
-%     opts.rho         = Optimal.TrZ*2+2;
-%     opts.MaxCols     = 3;
-%     opts.EvecPast    = 2;
-%     opts.EvecCurrent = 1;
-%     opts.solver      = "primal";
-%     Out_Primal_2_1   = SBM(At_sdp,b_sdp,c_sdp,K_sdp,opts);
-% 
-%     opts.Maxiter     = 201;
-%     opts.rho         = Optimal.TrZ*2+2;
-%     opts.MaxCols     = 4;
-%     opts.EvecPast    = 3;
-%     opts.EvecCurrent = 1;
-%     opts.solver      = "primal";
-%     Out_Primal_3_1   = SBM(At_sdp,b_sdp,c_sdp,K_sdp,opts);
-% 
-%     opts.Maxiter     = 201;
-%     opts.rho         = Optimal.TrZ*2+2;
-%     opts.MaxCols     = 2;
-%     opts.EvecPast    = 0;
-%     opts.EvecCurrent = 2;
-%     opts.solver      = "primal";
-%     Out_Primal_0_2   = SBM(At_sdp,b_sdp,c_sdp,K_sdp,opts);
-%   
-%     opts.Maxiter     = 201;
-%     opts.rho         = Optimal.TrZ*2+2;
-%     opts.MaxCols     = 3;
-%     opts.EvecPast    = 0;
-%     opts.EvecCurrent = 3;
-%     opts.solver      = "primal";
-%     Out_Primal_0_3   = SBM(At_sdp,b_sdp,c_sdp,K_sdp,opts);
-% 
-%     opts.Maxiter     = 201;
-%     opts.rho         = Optimal.TrZ*2+2;
-%     opts.MaxCols     = 4;
-%     opts.EvecPast    = 0;
-%     opts.EvecCurrent = 4;
-%     opts.solver      = "primal";
-%     Out_Primal_0_4   = SBM(At_sdp,b_sdp,c_sdp,K_sdp,opts);
+    opts.Maxiter     = 201;
+    opts.rho         = Optimal.TrZ*2+2;
+    opts.MaxCols     = 2;
+    opts.EvecPast    = 1;
+    opts.EvecCurrent = 1;
+    opts.solver      = "primal";
+    Out_Primal_1_1   = SBM(At_sdp,b_sdp,c_sdp,K_sdp,opts);
+ 
+    opts.Maxiter     = 201;
+    opts.rho         = Optimal.TrZ*2+2;
+    opts.MaxCols     = 3;
+    opts.EvecPast    = 2;
+    opts.EvecCurrent = 1;
+    opts.solver      = "primal";
+    Out_Primal_2_1   = SBM(At_sdp,b_sdp,c_sdp,K_sdp,opts);
+
+    opts.Maxiter     = 201;
+    opts.rho         = Optimal.TrZ*2+2;
+    opts.MaxCols     = 4;
+    opts.EvecPast    = 3;
+    opts.EvecCurrent = 1;
+    opts.solver      = "primal";
+    Out_Primal_3_1   = SBM(At_sdp,b_sdp,c_sdp,K_sdp,opts);
+
+    opts.Maxiter     = 201;
+    opts.rho         = Optimal.TrZ*2+2;
+    opts.MaxCols     = 2;
+    opts.EvecPast    = 0;
+    opts.EvecCurrent = 2;
+    opts.solver      = "primal";
+    Out_Primal_0_2   = SBM(At_sdp,b_sdp,c_sdp,K_sdp,opts);
+  
+    opts.Maxiter     = 201;
+    opts.rho         = Optimal.TrZ*2+2;
+    opts.MaxCols     = 3;
+    opts.EvecPast    = 0;
+    opts.EvecCurrent = 3;
+    opts.solver      = "primal";
+    Out_Primal_0_3   = SBM(At_sdp,b_sdp,c_sdp,K_sdp,opts);
+
+    opts.Maxiter     = 201;
+    opts.rho         = Optimal.TrZ*2+2;
+    opts.MaxCols     = 4;
+    opts.EvecPast    = 0;
+    opts.EvecCurrent = 4;
+    opts.solver      = "primal";
+    Out_Primal_0_4   = SBM(At_sdp,b_sdp,c_sdp,K_sdp,opts);
 % 
 % 
 % %%%%%%%%%% [Dual] %%%%%%%%%%
