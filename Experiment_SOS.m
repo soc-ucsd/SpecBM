@@ -7,16 +7,16 @@ addpath('.\packages\SBM-Dual');
 addpath('.\packages\General');
 %addpath('.\packages\InOutApprox');
 
-n = [30];
+n = [30,35,40];
 filepath = "examples\POP\";
 %Tran     = "_Tran.mat";
 Tran = "";
 for i = 1:length(n)
-    for  r = [1]
+    for  r = [1,2,4]
         clearvars -global -except n filepath r i Tran
         close all 
         N = n(i);
-        if r == 1 
+        if r == 1
             functionname = "Broyden_sphere";
             filename     = functionname+num2str(N)+"_R1"+Tran;
             file         = filepath + filename;
@@ -81,77 +81,43 @@ for i = 1:length(n)
                 opts.EvecCurrent = 3;%floor(opts.n/10);
         end
 
-
-
-%         if r == 1 
-%             opts.rho         = 10;
-%             opts.MaxCols     = 5;%floor(opts.n/10);
-%             opts.EvecPast    = 0;
-%             opts.EvecCurrent = 5;%floor(opts.n/10);
-%         elseif r == 2 
-%             opts.rho         = 10;
-%             opts.MaxCols     = 5;%floor(opts.n/10);
-%             opts.EvecPast    = 0;
-%             opts.EvecCurrent = 5;%floor(opts.n/10);
-%         elseif r == 3
-%             opts.rho         = 10;
-%             opts.MaxCols     = 5;%floor(opts.n/10);
-%             opts.EvecPast    = 0;
-%             opts.EvecCurrent = 5;%floor(opts.n/10);
-%         elseif r == 4
-%             opts.rho         = 4;
-%             opts.MaxCols     = 5;%floor(opts.n/10);
-%             opts.EvecPast    = 0;
-%             opts.EvecCurrent = 5;%floor(opts.n/10);
+        
+%         if N<40
+%             opts.epislonphase1  = 10^-3;
+%             opts.DynamicRho     = false;
+%             opts.DynamicMaxCols = false; 
+%             opts.MaxCols2       = 15;%floor(opts.n/10);
+%             opts.EvecPast2      = 0;
+%             opts.EvecCurrent2   = 15;%floor(opts.n/10);
+%         elseif N == 40
+%             opts.epislonphase1  = 10^-3;
+%             opts.DynamicRho     = false;
+%             opts.DynamicMaxCols = false; 
+%             opts.MaxCols2       = 15;%floor(opts.n/10);
+%             opts.EvecPast2      = 0;
+%             opts.EvecCurrent2   = 15;%floor(opts.n/10);
+%         elseif N == 45
+%             opts.epislonphase1  = 10^-3;
+%             opts.DynamicRho     = false;
+%             opts.DynamicMaxCols = false; 
+%             opts.MaxCols2       = 15;%floor(opts.n/10);
+%             opts.EvecPast2      = 0;
+%             opts.EvecCurrent2   = 15;%floor(opts.n/10);
+%         elseif N == 50
+%             opts.epislonphase1  = 10^-3;
+%             opts.DynamicRho     = false;
+%             opts.DynamicMaxCols = false; 
+%             opts.MaxCols2       = 10;%floor(opts.n/10);
+%             opts.EvecPast2      = 0;
+%             opts.EvecCurrent2   = 10;%floor(opts.n/10);  
 %         end
-        
-        if N<40
-            opts.epislonphase1  = 10^-3;
-            opts.DynamicRho     = false;
-            opts.DynamicMaxCols = false; 
-            opts.MaxCols2       = 15;%floor(opts.n/10);
-            opts.EvecPast2      = 0;
-            opts.EvecCurrent2   = 15;%floor(opts.n/10);
-        elseif N == 40
-            opts.epislonphase1  = 10^-3;
-            opts.DynamicRho     = false;
-            opts.DynamicMaxCols = false; 
-            opts.MaxCols2       = 15;%floor(opts.n/10);
-            opts.EvecPast2      = 0;
-            opts.EvecCurrent2   = 15;%floor(opts.n/10);
-        elseif N == 45
-            opts.epislonphase1  = 10^-3;
-            opts.DynamicRho     = false;
-            opts.DynamicMaxCols = false; 
-            opts.MaxCols2       = 15;%floor(opts.n/10);
-            opts.EvecPast2      = 0;
-            opts.EvecCurrent2   = 15;%floor(opts.n/10);
-        elseif N == 50
-            opts.epislonphase1  = 10^-3;
-            opts.DynamicRho     = false;
-            opts.DynamicMaxCols = false; 
-            opts.MaxCols2       = 10;%floor(opts.n/10);
-            opts.EvecPast2      = 0;
-            opts.EvecCurrent2   = 10;%floor(opts.n/10);  
-        end
-        opts.rho1 = opts.rho; %does not matter 
-        opts.rho2 = opts.rho1; %does not matter
-%         %Dynamic rho 
-%         
-%         if N >=30
-%             opts.rho1        = 100;
-%         else
-%             opts.rho1        = 100;
-%         end        
-%         opts.rho2        = 4;
-        
-%         fileINVAAT       = filepath + "INV\" + functionname+num2str(N)+"_R1_"+"INVAAT.mat";
-%         load(fileINVAAT);
-        %opts.AAT_INV  = INVAAT;
-        %c_new_nor     = c_new/norm(c_new);
+%         opts.rho1 = opts.rho; %does not matter 
+%         opts.rho2 = opts.rho1; %does not matter
+
 
         %Out  = Copy_of_SBMP(A_new,b_new,c_new,K_new,opts);
-        Out  = Copy_of_SBMP(At.',b,c,K_new,opts);
+        opts.solver      = "primal";
+        Out  = SBM(At.',b,c,K_new,opts);
 
         %save("results_POPs\SBMP\"+filename+"_result.mat",'Out');
     end
