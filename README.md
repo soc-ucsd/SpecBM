@@ -10,9 +10,18 @@ To access large scale data, please visit [Google drive](https://drive.google.com
 
 
 # Description
-SBMP and SBMD solve the standard primal and dual vectorized semidefinite programs
+SBMP and SBMD consider the standard primal and dual vectorized semidefinite programs
 ```
-		minimize 	c'x						maximize 	b'y
+		minimize 	<C,X>						maximize 	b'y
 	(1)	subject to	Ax = b,				         (2)	subject to	A'y + z = c,	
 				x \in PSD							z \in PSD
 ```
+
+# Description - SBMP
+SBMP solve the penalized primal problem
+```
+	minimize c'x 
+```
+
+
+# Description - SBMD
