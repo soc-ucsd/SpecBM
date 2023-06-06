@@ -44,7 +44,7 @@ where $` \mathcal{P}^\star= \left\{X \in \mathbb{S}^{n} \mid p^\star = \langle C
 To run SBMP or SBMD, type the commands
 
 	opts.Maxiter     = 200;             %Maximun number of iteration
-	opts.rho         = xxx; %The parameter should be chosen correctly!
+	opts.rho         = your choice of penalty parameter; %The parameter should be chosen correctly!
 	opts.MaxCols     = 2;               %Total number of eivenvectors (This should be opts.MaxCols = opts.EvecPast + opts.EvecCurrent)
 	opts.EvecPast    = 1;	            %Number of past eigenvectors
 	opts.EvecCurrent = 1;               %Number of current eigenvectors
