@@ -1,4 +1,4 @@
-%Matrix Completion
+%Matrix Cut
 %Authors: Feng-Yi Liao & Yang Zheng
 %         SOC Lab @UC San Diego
  
