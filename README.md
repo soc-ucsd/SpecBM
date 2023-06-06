@@ -45,12 +45,9 @@ To run SBMP or SBMD, type the commands
 	opts.n              = K_sdp.s; 
 	opts.m              = height(At_sdp); 
 	opts.epislon        = 10^-20; 
-
 	opts.beta           = 0.25; 
 	opts.mu             = 0.5; 
 	opts.alpha          = 50; %does not matter for adaptive case 
-
-
 	opts.Maxiter     = 201;
 	opts.rho         = Optimal.TrZ*2+2;
 	opts.MaxCols     = 2;
