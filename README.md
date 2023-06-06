@@ -22,7 +22,7 @@ SBMP and SBMD consider the standard primal and dual semidefinite programs
 ```math
 	\min_{y}\quad b^{\mathsf{T}}y, \quad \mathrm{subject~to}\quad C-\mathcal{A}^{*}y(X) = Z,\; Z \in \mathbb{S}^n_+. 
 ```
-## Description - SBMP
+# Description - SBMP
 
 SBMP solves the penalized primal problem 
 ```math
@@ -52,4 +52,4 @@ To run SBMP or SBMD, type the commands
 	opts.solver      = "primal";        %Primal or Dual Spectral Bundle Method
 	Out_Primal_1_1   = SBM(At,b,c,K,opts); %Run
 
-The parameter $`opts.rho`$ should be chosen correctly as discussed in [123](Description - SBMP)!
+The parameter $`opts.rho`$ should be chosen correctly as discussed in [123](#Description - SBMP)!
