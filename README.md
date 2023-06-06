@@ -16,8 +16,6 @@ SBMP and SBMD consider the standard primal and dual vectorized semidefinite prog
 $$
 \begin{aligned}
 	\min_{X} \quad  \langle C,X \rangle\\
-	\mathrm{subject~to} \quad  \mathcal{A}(X) = b \\
-	 X \in \mathbb{S}^n_+.
 \end{aligned}
 $$
 
