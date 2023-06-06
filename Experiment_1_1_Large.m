@@ -17,19 +17,13 @@ filename = "n1000m200dr3";
 % Note: the problem data is large. It takes a while to load the data
 load("examples\randomSDPs\"+filename+".mat");
 
-opts.n              = K_sdp.s; 
-opts.m              = height(At_sdp); 
 opts.epislon        = 10^-20; 
 opts.beta           = 0.4;
 opts.mu             = 0.7;
 opts.alphamin       = 10^-5;
 opts.alphamax       = 100;
-opts.alpha          = 1; %does not matter for adaptive case 
-%opts.feasible       = false; 
+opts.alpha          = 1; %does not matter for adaptive case  
 opts.adaptive       = true;
-% opts.sparse         = false;
-% opts.DynamicRho     = false;
-% opts.DynamicMaxCols = false;
 
 %%%%%%%%%% [Primal] %%%%%%%%%%
 %We do not count the first iteration for SBMP
