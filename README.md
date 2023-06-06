@@ -14,7 +14,7 @@ SBMP and SBMD consider the standard primal and dual vectorized semidefinite prog
 
 		minimize 	\begin{align}\sqrt{3x-1}+(1+x)^2\end{align}						maximize 	b'y
 	(1)	subject to	A(X) = b,				         (2)	subject to	A'y + z = c,	
-				x \in PSD$$							z \in PSD
+				x \in PSD							z \in PSD
 
 
 # Description - SBMP
