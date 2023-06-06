@@ -22,9 +22,8 @@ SBMP and SBMD consider the standard primal and dual semidefinite programs
 ```math
 	\min_{y}\quad b^{\mathsf{T}}y, \quad \mathrm{subject~to}\quad C-\mathcal{A}^{*}y(X) = Z,\; Z \in \mathbb{S}^n_+. 
 ```
-================================================================================
-                              Description - SBMP
-================================================================================
+## Description - SBMP
+
 SBMP solves the penalized primal problem 
 ```math
 \min_{X \in \mathcal{X}_0} \quad \langle C,X\rangle + \rho \max \{\lambda_{\max}(-X),0\},
