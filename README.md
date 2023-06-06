@@ -42,6 +42,7 @@ where $` \mathcal{P}^\star= \left\{X \in \mathbb{S}^{n} \mid p^\star = \langle C
 
 # Quick Start
 To run SBMP or SBMD, type the commands
+
 	opts.n              = K_sdp.s; 
 	opts.m              = height(At_sdp); 
 	opts.epislon        = 10^-20; 
