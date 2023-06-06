@@ -45,7 +45,7 @@ To run SBMP or SBMD, type the commands
 
 	opts.Maxiter     = 201;             %Maximun number of iteration
 	opts.rho         = Optimal.TrZ*2+2; %The parameter should be chosen correctly!
-	opts.MaxCols     = 2;               %
+	opts.MaxCols     = 2;               %Total number of eivenvectors (This should be opts.MaxCols = opts.EvecPast + opts.EvecCurrent)
 	opts.EvecPast    = 1;	            %Number of past eigenvectors
 	opts.EvecCurrent = 1;               %Number of current eigenvectors
 	opts.solver      = "primal";        %Primal or Dual Spectral Bundle Method
