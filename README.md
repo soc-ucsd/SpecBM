@@ -22,7 +22,7 @@ SBMP and SBMD consider the standard primal and dual semidefinite programs
 ```math
 	\min_{y}\quad b^{\mathsf{T}}y, \quad \mathrm{subject~to}\quad C-\mathcal{A}^{*}y(X) = Z,\; Z \in \mathbb{S}^n_+. 
 ```
-# Description - SBMP
+## Description-SBMP
 
 SBMP solves the penalized primal problem 
 ```math
@@ -33,7 +33,7 @@ where $` \mathcal{X}_0 =\{X \in \mathbb{S}^n_+ \mid \mathcal{A}(X) = b\} `$.
 The parameter $` \rho `$ should be chosen as $$\rho > \sup_{Z^{\star} \in \mathcal{D}^\star} \mathop{\bf tr}(Z^{\star}),$$ where $` \mathcal{D}^\star = \left\{(y,Z) \in \mathbb{R}^m \times \mathbb{S}^{n} \mid d^\star = b^{\mathsf{T}} y, Z+\mathcal{A}^* (y) = C, Z \in \mathbb{S}^n_+\right\}`$ is the optimal solution set of the dual problem [Dual].
 
 
-# Description - SBMD
+## Description-SBMD
 SBMD solves the penalized dual problem 
 ```math
 \min_{y \in \mathbb{R}^m} \quad -b^{\mathsf{T}} y + \rho \max \{\lambda_{\max}(\mathcal{A}^{*}y-C),0\}.
