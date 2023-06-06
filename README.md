@@ -64,7 +64,7 @@ The parameter `opts.rho` should be chosen correctly as discussed in [SBMP](#SBMP
 Try `Experiment_1_1.m` to get a better understanding.
 
 # Dependency
-the code requires the installation of [Sedumi](https://sedumi.ie.lehigh.edu/) and [Mosek](https://www.mosek.com/).
+The code requires the installation of [Sedumi](https://sedumi.ie.lehigh.edu/) and [Mosek](https://www.mosek.com/).
 
 # Contact us
 To contact us about SBM, suggest improvements and report bugs, email either [Feng-Yi Liao](mailto:fliao@ucsd.edu?Subject=SBM) or [Yang Zheng](mailto:zhengy@eng.ucsd.edu?Subject=SBM).
