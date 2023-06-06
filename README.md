@@ -12,7 +12,7 @@ To access large scale data, please visit [Google drive](https://drive.google.com
 \newcommand{\tr}{\mathsf{T}}
 
 # Description
-SBMP and SBMD consider the standard primal and dual vectorized semidefinite programs
+SBMP and SBMD consider the standard primal and dual semidefinite programs
 
 ***[Primal]***
 ```math 
