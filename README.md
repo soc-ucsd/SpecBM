@@ -26,7 +26,7 @@ SBMP solves the penalized primal problem
 ```
 where $` \mathcal{X}_0 =\{X \in \mathbb{S}^n_+ \mid \mathcal{A}(X) = b\} `$.
 
-The parameter $` \rho `$ should be chosen as $$\rho > \sup_{Z^{\star} \in \mathcal{D}^\star} \mathop{\bf tr}(Z^{\star}),$$ where $` \mathcal{D}^\star = \left\{(y,Z) \in \mathbb{R}^m \times \mathbb{S}^{n} \mid d^\star = b^\tr y, Z+\mathcal{A}^* (y) = C, Z \in \mathbb{S}^n_+\right\}`$ is the optimal solution set of the dual problem (2).
+The parameter $` \rho `$ should be chosen as $$\rho > \sup_{Z^{\star} \in \mathcal{D}^\star} \mathop{\bf tr}(Z^{\star}),$$ where $` \mathcal{D}^\star = \left\{(y,Z) \in \mathbb{R}^m \times \mathbb{S}^{n} \mid d^\star = b^{\mathsf{T}} y, Z+\mathcal{A}^* (y) = C, Z \in \mathbb{S}^n_+\right\}`$ is the optimal solution set of the dual problem (2).
 
 
 # Description - SBMD
