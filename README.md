@@ -60,4 +60,5 @@ To run SBMP or SBMD, use the commands
 
 The parameter `opts.rho` should be chosen correctly as discussed in [SBMP](#SBMP) and [SBMD](#SBMD)!
 
-#
+# Contact us
+To contact us about SBM, suggest improvements and report bugs, email either Feng-Yi Liao(mailto:fliao@ucsd.edu?Subject=SBM) or Yang Zheng(mailto:zhengy@eng.ucsd.edu?Subject=SBM).
