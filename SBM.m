@@ -7,13 +7,11 @@ function Out = SBM(At,b,c,K,userOpts)
 %
 %Solve a standard semidefinite program in the following form
 %
-%        min  <c,x> + <C,X>              max  <b,y>
-%  (P)   s.t. a(x) + A(X) = b       (D)  s.t. a^y = c 
-%             x \in free                      A^Ty+Z = C
-%             X \in PSD                       y\in free    
-%                                             Z\in PSD
-%
-%
+%        min   <C,X>               max  <b,y>
+%  (P)   s.t.  A(X) = b       (D)  s.t. A^Ty+Z = C
+%              X \in PSD                Z\in PSD
+%                                      
+%                                             
 
     if ~isfield(userOpts,'solver')
         userOpts.solver = "primal";% default
