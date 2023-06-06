@@ -14,6 +14,7 @@ To access large scale data, please visit [Google drive](https://drive.google.com
 	- [SBMP](#SBMP)
 	- [SBMD](#SBMD)
 - [Quick Start](#Quick-Start)
+- [Dependency]
 
 # Description
 
@@ -59,6 +60,9 @@ To run SBMP or SBMD, use the commands
 	Out_Primal_1_1   = SBM(At,b,c,K,opts); %Run
 
 The parameter `opts.rho` should be chosen correctly as discussed in [SBMP](#SBMP) and [SBMD](#SBMD)!
+
+# Dependency
+the code requires the installation of [Sedumi](https://sedumi.ie.lehigh.edu/) and [Mosek](https://www.mosek.com/).
 
 # Contact us
 To contact us about SBM, suggest improvements and report bugs, email either [Feng-Yi Liao](mailto:fliao@ucsd.edu?Subject=SBM) or [Yang Zheng](mailto:zhengy@eng.ucsd.edu?Subject=SBM).
