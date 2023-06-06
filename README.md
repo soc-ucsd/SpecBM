@@ -19,9 +19,7 @@ SBMP and SBMD consider the standard primal and dual vectorized semidefinite prog
 
 # Description - SBMP
 SBMP solve the penalized primal problem 
-$$
-\min_{X \in \mathcal{X}_0} 
-$$
+$$\min_{X \in \mathcal{X}_0} $$
 
 # Description - SBMD
 
