@@ -13,8 +13,8 @@ To access large scale data, please visit [Google drive](https://drive.google.com
 SBMP and SBMD consider the standard primal and dual vectorized semidefinite programs
 
 		minimize 	<C,X>						maximize 	b'y
-	(1)	subject to	A(X) = b,				         (2)	subject to	A'y + z = c,	
-				x \in PSD							z \in PSD
+	(1)	subject to	A(X) = b,				  (2)	subject to	A'y + Z = c,	
+				X \in PSD							Z \in PSD
 
 
 # Description - SBMP
