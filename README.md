@@ -9,7 +9,7 @@ To get a quick start, try Experiment_1_1.m
 To access large scale data, please visit [Google drive](https://drive.google.com/drive/folders/101KqJ56fwcZMuYuTTpwUASnevcnB2frt?usp=drive_link).
 
 \newcommand{\Trace}{\mathop{\bf tr}}
-\newcommand{\tr}{\mathsf{ T}}
+\newcommand{\tr}{\mathsf{T}}
 
 # Description
 SBMP and SBMD consider the standard primal and dual vectorized semidefinite programs
@@ -30,5 +30,5 @@ The parameter $`\rho`$ should be chosen as $`\rho > \sup_{Z^{\star} \in \mathcal
 # Description - SBMD
 SBMD solves the penalized dual problem 
 ```math
-\min_{y \in \mathbb{R}^m} \quad -b^T y + \rho \max \{\lambda_{\max}(\mathcal{A}^{*}y-C),0\},
+\min_{y \in \mathbb{R}^m} \quad -b^{\mathsf{T}} y + \rho \max \{\lambda_{\max}(\mathcal{A}^{*}y-C),0\},
 ```
