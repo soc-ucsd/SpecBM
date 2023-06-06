@@ -12,7 +12,7 @@ To access large scale data, please visit [Google drive](https://drive.google.com
 # Description
 SBMP and SBMD consider the standard primal and dual vectorized semidefinite programs
 ```
-		minimize 	$\langle C,X \rangle$						maximize 	b'y
+		minimize 	$\langle \sqrt{123} C,X \rangle$						maximize 	b'y
 	(1)	subject to	A(X) = b,				         (2)	subject to	A'y + z = c,	
 				x \in PSD$$							z \in PSD
 ```
