@@ -43,18 +43,12 @@ where $` \mathcal{P}^\star= \left\{X \in \mathbb{S}^{n} \mid p^\star = \langle C
 # Quick Start
 To run SBMP or SBMD, type the commands
 
-	opts.n              = K_sdp.s; 
-	opts.m              = height(At_sdp); 
-	opts.epislon        = 10^-20; 
-	opts.beta           = 0.25; 
-	opts.mu             = 0.5; 
-	opts.alpha          = 50; %does not matter for adaptive case 
-	opts.Maxiter     = 201;
-	opts.rho         = Optimal.TrZ*2+2;
-	opts.MaxCols     = 2;
-	opts.EvecPast    = 1;
-	opts.EvecCurrent = 1;
-	opts.solver      = "primal";
-	Out_Primal_1_1   = SBM(At_sdp,b_sdp,c_sdp,K_sdp,opts);
+	opts.Maxiter     = 201;             %Maximun number of iteration
+	opts.rho         = Optimal.TrZ*2+2; %The parameter should be chosen correctly!
+	opts.MaxCols     = 2;               %
+	opts.EvecPast    = 1;	            %Number of past eigenvectors
+	opts.EvecCurrent = 1;               %Number of current eigenvectors
+	opts.solver      = "primal";        %Primal or Dual Spectral Bundle Method
+	Out_Primal_1_1   = SBM(At_sdp,b_sdp,c_sdp,K_sdp,opts); %Run
 
 
