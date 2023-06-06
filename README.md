@@ -19,7 +19,9 @@ SBMP and SBMD consider the standard primal and dual vectorized semidefinite prog
 
 # Description - SBMP
 SBMP solve the penalized primal problem 
-$$\min_{X \in \mathcal{X}_0} \quad \langle C,X\rangle + \rho \max a_{123} $$
+```math
+\min_{X \in \mathcal{X}_0} \quad \langle C,X\rangle + \rho \max 
+```
 
 # Description - SBMD
 
