@@ -20,7 +20,7 @@ SBMP and SBMD consider the standard primal and dual vectorized semidefinite prog
 # Description - SBMP
 SBMP solve the penalized primal problem 
 
-$minimize <C,X> + \rho$ 
+$\text{minimize} \langle C,X\rangle + \rho$ 
 
 
 
