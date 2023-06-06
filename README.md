@@ -13,7 +13,7 @@ To access large scale data, please visit [Google drive](https://drive.google.com
 
 # Description
 SBMP and SBMD consider the standard primal and dual vectorized semidefinite programs
-```math[primal]
+```math [primal]
 	\min_{X}\quad \langle C,X \rangle, \quad \mathrm{subject~to}\quad \mathcal{A}(X) = b,\; X \in \mathbb{S}^n_+.
 ```
 ```math
