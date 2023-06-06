@@ -50,12 +50,12 @@ where $` \mathcal{P}^\star= \left\{X \in \mathbb{S}^{n} \mid p^\star = \langle C
 # Quick Start
 To run SBMP or SBMD, type the commands
 
-	opts.Maxiter     = 200;             %Maximun number of iteration
+	opts.Maxiter     = 200;                %Maximun number of iteration
 	opts.rho         = your choice of penalty parameter; 
-	opts.MaxCols     = 2;               %Total number of eivenvectors (This should be opts.MaxCols = opts.EvecPast + opts.EvecCurrent)
-	opts.EvecPast    = 1;	            %Number of past eigenvectors
-	opts.EvecCurrent = 1;               %Number of current eigenvectors
-	opts.solver      = "primal";        %Primal or Dual Spectral Bundle Method
+	opts.MaxCols     = 2;                  %Total number of eivenvectors (This should be opts.MaxCols = opts.EvecPast + opts.EvecCurrent)
+	opts.EvecPast    = 1;	               %Number of past eigenvectors
+	opts.EvecCurrent = 1;                  %Number of current eigenvectors
+	opts.solver      = "primal";           %Primal or Dual Spectral Bundle Method
 	Out_Primal_1_1   = SBM(At,b,c,K,opts); %Run
 
 The parameter $`opts.rho`$ should be chosen correctly as discussed in [SBMP](#SBMP) and [SBMD](#SBMD)!
