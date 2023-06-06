@@ -15,9 +15,6 @@ addpath('.\packages\General');
 filename = "n100m100dr3";
 load("examples\randomSDPs\"+filename+".mat");
 
-% At_sdp              = full(At_sdp); 
-% b_sdp               = full(b_sdp); 
-% c_sdp               = full(c_sdp);
 opts.n              = K_sdp.s; 
 opts.m              = height(At_sdp); 
 opts.epislon        = 10^-20; 
@@ -25,12 +22,6 @@ opts.epislon        = 10^-20;
 opts.beta           = 0.25; 
 opts.mu             = 0.5; 
 opts.alpha          = 50; %does not matter for adaptive case 
-
-% opts.feasible       = false; 
-% opts.adaptive       = true;
-% opts.sparse         = false;
-% opts.DynamicRho     = false;
-% opts.DynamicMaxCols = false;
 
 %%%%%%%%%% [Primal] %%%%%%%%%%
 %We do not count the first iteration for SBMP
@@ -94,7 +85,7 @@ opts.alpha          = 50; %does not matter for adaptive case
     opts.EvecCurrent = 2;
     opts.solver      = "dual";
     Out_Dual_0_2     = SBM(At_sdp,b_sdp,c_sdp,K_sdp,opts);
-%      
+      
     opts.Maxiter     = 200;
     opts.rho         = Optimal.TrX*2+2;
     opts.MaxCols     = 3;
