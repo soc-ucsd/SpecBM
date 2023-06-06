@@ -25,6 +25,7 @@ SBMP solves the penalized primal problem
 \min_{X \in \mathcal{X}_0} \quad \langle C,X\rangle + \rho \max \{\lambda_{\max}(-X),0\},
 ```
 where $` \mathcal{X}_0 =\{X \in \mathbb{S}^n_+ \mid \mathcal{A}(X) = b\} `$.
+
 The parameter $` \rho `$ should be chosen as $` \rho > \sup_{Z^{\star} \in \mathcal{D}^\star} \mathop{\bf tr}(Z^{\star}) `$, where $` \mathcal{D}^\star `$ is the optimal solution set of the dual problem (2).
 
 
