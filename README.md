@@ -14,10 +14,10 @@ To access large scale data, please visit [Google drive](https://drive.google.com
 # Description
 SBMP and SBMD consider the standard primal and dual vectorized semidefinite programs
 ```math
-	\min_{X}\quad \langle C,X \rangle, \quad \mathrm{subject~to}\quad \mathcal{A}(X) = b, X \in \mathbb{S}^n_+.
+	\min_{X}\quad \langle C,X \rangle, \quad \mathrm{subject~to}\quad \mathcal{A}(X) = b,\; X \in \mathbb{S}^n_+.
 ```
 ```math
-	\min_{y}\quad b^{\mathsf{T}}y, \quad \mathrm{subject~to}\quad C-\mathcal{A}^{*}y(X) = Z, Z \in \mathbb{S}^n_+.
+	\min_{y}\quad b^{\mathsf{T}}y, \quad \mathrm{subject~to}\quad C-\mathcal{A}^{*}y(X) = Z,\; Z \in \mathbb{S}^n_+.
 ```
 
 
