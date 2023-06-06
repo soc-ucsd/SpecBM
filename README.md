@@ -27,6 +27,5 @@ where $`\mathcal{X}_0 =\{X \in \mathbb{S}^n_+ \mid \mathcal{A}(X) = b\} `$
 # Description - SBMD
 SBMD solves the penalized dual problem 
 ```math
-\min_{y \in \mathbb{R}^m} \quad -b^T y + \rho \min \{\lambda_{\max}(\mathcal{A}^{*}y-C),0\},
+\min_{y \in \mathbb{R}^m} \quad -b^T y + \rho \max \{\lambda_{\max}(\mathcal{A}^{*}y-C),0\},
 ```
-where $`\mathcal{X}_0 =\{X \in \mathbb{S}^n_+ \mid \mathcal{A}(X) = b\} `$
