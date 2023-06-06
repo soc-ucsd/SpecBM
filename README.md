@@ -1,5 +1,5 @@
 # SpecBM
-Spectral Bundle Method - Primal and Dual formulations (SBMP and SBMD).
+Spectral Bundle Method (SBM) - Primal and Dual formulations (SBMP and SBMD).
 
 Note: the code requires the installation of [Sedumi](https://sedumi.ie.lehigh.edu/) and [Mosek](https://www.mosek.com/).
 
@@ -39,4 +39,24 @@ SBMD solves the penalized dual problem
 ```
 The parameter $` \rho `$ should be chosen as $$\rho > \sup_{X^{\star} \in \mathcal{P}^\star} \mathop{\bf tr}(X^{\star}),$$
 where $` \mathcal{P}^\star= \left\{X \in \mathbb{S}^{n} \mid p^\star = \langle C, X\rangle, \mathcal{A}(X) = b, X \in \mathbb{S}^n_+\right\}`$ is the optimal solution set of the primal problem [Primal].
+
+# Quick Start
+To run SBMP or SBMD, type the commands
+	opts.n              = K_sdp.s; 
+	opts.m              = height(At_sdp); 
+	opts.epislon        = 10^-20; 
+
+	opts.beta           = 0.25; 
+	opts.mu             = 0.5; 
+	opts.alpha          = 50; %does not matter for adaptive case 
+
+
+	opts.Maxiter     = 201;
+	opts.rho         = Optimal.TrZ*2+2;
+	opts.MaxCols     = 2;
+	opts.EvecPast    = 1;
+	opts.EvecCurrent = 1;
+	opts.solver      = "primal";
+	Out_Primal_1_1   = SBM(At_sdp,b_sdp,c_sdp,K_sdp,opts);
+
 
