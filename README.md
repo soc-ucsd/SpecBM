@@ -48,7 +48,7 @@ The parameter $` \rho `$ should be chosen as $$\rho > \sup_{X^{\star} \in \mathc
 where $` \mathcal{P}^\star= \left\{X \in \mathbb{S}^{n} \mid p^\star = \langle C, X\rangle, \mathcal{A}(X) = b, X \in \mathbb{S}^n_+\right\}`$ is the optimal solution set of the primal problem [Primal].
 
 # Quick Start
-To run SBMP or SBMD, type the commands
+To run SBMP or SBMD, use the commands
 
 	opts.Maxiter     = 200;                %Maximun number of iteration
 	opts.rho         = your choice of penalty parameter; 
