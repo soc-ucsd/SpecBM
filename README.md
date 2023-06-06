@@ -12,7 +12,7 @@ To access large scale data, please visit [Google drive](https://drive.google.com
 # Description
 SBMP and SBMD consider the standard primal and dual vectorized semidefinite programs
 
-		minimize 	$`\sqrt{3x-1}+(1+x)^2`$						maximize 	b'y
+		minimize 	$\sqrt{3x-1}+(1+x)^2$						maximize 	b'y
 	(1)	subject to	A(X) = b,				         (2)	subject to	A'y + z = c,	
 				x \in PSD$$							z \in PSD
 
