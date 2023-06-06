@@ -8,6 +8,8 @@ To get a quick start, try Experiment_1_1.m
 
 To access large scale data, please visit [Google drive](https://drive.google.com/drive/folders/101KqJ56fwcZMuYuTTpwUASnevcnB2frt?usp=drive_link).
 
+\newcommand{\Trace}{\mathop{\bf tr}}
+\newcommand{\tr}{\mathsf{ T}}
 
 # Description
 SBMP and SBMD consider the standard primal and dual vectorized semidefinite programs
@@ -23,7 +25,7 @@ SBMP solves the penalized primal problem
 \min_{X \in \mathcal{X}_0} \quad \langle C,X\rangle + \rho \max \{\lambda_{\max}(-X),0\},
 ```
 where $`\mathcal{X}_0 =\{X \in \mathbb{S}^n_+ \mid \mathcal{A}(X) = b\} `$.
-The parameter $`\rho`$ should be chosen as $`\rho > \sup_{X^{\star} \in \mathcal{D}^\star}`$
+The parameter $`\rho`$ should be chosen as $`\rho > \sup_{Z^{\star} \in \mathcal{D}^\star}` \text{} $
 
 # Description - SBMD
 SBMD solves the penalized dual problem 
