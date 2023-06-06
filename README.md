@@ -23,9 +23,9 @@ SBMP solve the penalized primal problem
 \min_{X \in \mathcal{X}_0} \quad \langle C,X\rangle + \rho \max \{\lambda_{\max}(-X),0\},
 ```
 where 
-```math 
+`math 
 \mathcal{X}_0 =\{X \in \mathbb{S}^n_+ \mid \mathcal{A}(X) = b\} 
-```
+`
 
 # Description - SBMD
 
