@@ -20,7 +20,7 @@ function Out = SBM(At,b,c,K,userOpts)
     end
   
     if userOpts.solver == "primal"
-        Out = Copy_of_SBMP(At,b,c,K,userOpts);
+        Out = SBMP(At,b,c,K,userOpts);
     elseif userOpts.solver == "dual"
         Out = SBMD(At,b,c,K,userOpts);
     else
