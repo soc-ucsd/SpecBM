@@ -61,7 +61,7 @@ To run SBMP or SBMD, use the commands
 
 The parameter `opts.rho` should be chosen correctly as discussed in [SBMP](#SBMP) and [SBMD](#SBMD)!
 
-Try `Experiment_1_1.m` to get a better understanding.
+Try `TestSBM.m` to get a better understanding.
 
 # Dependency
 The code requires the installation of [Sedumi](https://sedumi.ie.lehigh.edu/) and [Mosek](https://www.mosek.com/).
