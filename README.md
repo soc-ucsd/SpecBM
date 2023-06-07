@@ -27,7 +27,7 @@ SBMP and SBMD consider the standard primal and dual semidefinite programs
 
 ***[Dual]***
 ```math
-	\min_{y}\quad b^{\mathsf{T}}y, \quad \mathrm{subject~to}\quad C-\mathcal{A}^{*}y(X) = Z,\; Z \in \mathbb{S}^n_+. 
+	\max_{y,Z}\quad b^{\mathsf{T}}y, \quad \mathrm{subject~to}\quad \mathcal{A}^{*}y +Z= C,\; Z \in \mathbb{S}^n_+. 
 ```
 ## SBMP
 
