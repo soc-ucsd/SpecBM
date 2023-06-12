@@ -1,7 +1,7 @@
 # SpecBM
 Spectral Bundle Method (SBM) - Primal and Dual formulations (SBMP and SBMD).
 
-Note: the code requires the installation of [Sedumi](https://sedumi.ie.lehigh.edu/) and [Mosek](https://www.mosek.com/).
+Note: part of the code requires the installation of [Sedumi](https://sedumi.ie.lehigh.edu/) and [Mosek](https://www.mosek.com/).
 
 To get a quick start, try the file `TestSBM.m`
 
