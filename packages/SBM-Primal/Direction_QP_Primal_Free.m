@@ -50,7 +50,7 @@ function [Wstar,X_next,Gammastar,Sstar,DualFeasibility_psd,DualFeasibility_free,
          %rely on solvers!!!
          m         = [m1;m2];  
          
-         v = -inv(M)*m/2;
+         v = -pinv(M)*m/2;
         
          if v(1)< 0 || v(2) < 0  || v(1) + v(2) > Paras.rho
          
