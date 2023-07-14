@@ -29,26 +29,11 @@ function [Wstar,X_next,Gammastar,Sstar,DualFeasibility_psd,DualFeasibility_free,
     q2T  = temp.'*kronPtPt;
     q2  = q2T.';
 
-%     q1   = 2*Wt.'*(-Paras.c_sdp+Paras.alpha*omegat_sdp);
-%     %q2  = 2*Paras.alpha*kron(Pt',Pt')*omegat-2*kron(Pt',Pt')*Paras.c_sdp;
-%     %q2  = 2*Paras.alpha*kronPtPt'*omegat-2*kronPtPt'*Paras.c_sdp;
-%     %q2  = 2*kronPtPt'*(Paras.alpha*omegat-Paras.c_sdp);
-%     q2T = 2*(Paras.alpha*omegat_sdp-Paras.c_sdp).'*kronPtPt;
-%     q2  = q2T.';
-
     if feasible
-        %q3 = -2*(Paras.At_sdp*Paras.c_sdp+Paras.a*Paras.c0);
         q3 = -2*(Paras.At*Paras.c);
     else
-        %q3 = -2*(Paras.alpha*(Paras.b_sdp-Paras.At_sdp*omegat_sdp-Paras.a*omegat_free)+Paras.At_sdp*Paras.c_sdp+Paras.a*Paras.c0);
         q3 = -2*(Paras.alpha*(Paras.b-Paras.At_sdp*omegat_psd-Paras.At_free*omegat_free)+Paras.At*Paras.c);
     end
-    
-%     M11 = Q11 - Q13*(Paras.AAT\(Q13'));
-%     M22 = Paras.Ir2 - Q23*(Paras.AAT\(Q23'));
-%     M12 = Q12 - Q13*(Paras.AAT\(Q23'));
-%     m1  = q1-Q13*(Paras.AAT\q3);
-%     m2  = q2-Q23*(Paras.AAT\q3);
     
     M11 = Q11 - Q13*(Paras.AAT_INV*(Q31));
     %time comsuming
@@ -59,7 +44,6 @@ function [Wstar,X_next,Gammastar,Sstar,DualFeasibility_psd,DualFeasibility_free,
     
     M   = [M11,M12;
           M12.',M22];
-   % M   = (M+M.')/2;
      
     if Paras.EvecPast == 0 && Paras.EvecCurrent == 1 && feasible
          %In this case, we have closed form solution, so we don't need to
@@ -121,16 +105,12 @@ function [Wstar,X_next,Gammastar,Sstar,DualFeasibility_psd,DualFeasibility_free,
              [obj,idx]   = min([f1,f2,f3]);
              Gammastar = candidate{idx}.v1;
              Sstar     = candidate{idx}.v2;
-             %Wstar     = Gammastar*Wt + reshape(Pt*Sstar*Pt.',[],1);
          else
          
             Gammastar = v(1);
             Sstar     = v(2);
             
          end
-         
-%          Wstar     = Gammastar*Wt + reshape(Pt*Sstar*Pt.',[],1);
-%          y         = Paras.AAT_INV*(-q3/2-Gammastar*Q13.' - Q23'*reshape(Sstar,[],1));
 
     else
         [eig_vec,eig_val]  = eig(M) ;
@@ -177,10 +157,6 @@ function [Wstar,X_next,Gammastar,Sstar,DualFeasibility_psd,DualFeasibility_free,
         Sstar                          = zeros(Paras.MaxCols);
         Sstar(Paras.IndicesPSD)        = xPSD;
         Sstar(Paras.IndOffDiagCounter) = Sstar(Paras.IndOffDiagPSD);
-        %y                              = Paras.AAT\(-q3/2-Gammastar*Q13' - Q23'*reshape(Sstar,[],1));
-%         y                              = Paras.AAT_INV*(-q3/2-Gammastar*Q13.' - Q23'*reshape(Sstar,[],1));
-% 
-%         Wstar                          = Gammastar*Wt + reshape(Pt*Sstar*Pt.',[],1);
     end 
     
     %numerical issue
@@ -188,8 +164,6 @@ function [Wstar,X_next,Gammastar,Sstar,DualFeasibility_psd,DualFeasibility_free,
         Gammastar = 0;
     end
 
-%     issymmetric(Sstar)
-%     issymmetric(Pt*Sstar*Pt.')
     Wstar     = Gammastar*Wt + reshape(Pt*Sstar*Pt.',[],1);
     y         = Paras.AAT_INV*(-q3/2-Gammastar*Q13.' - Q23'*reshape(Sstar,[],1));
     
@@ -201,10 +175,10 @@ function [Wstar,X_next,Gammastar,Sstar,DualFeasibility_psd,DualFeasibility_free,
     DualAffine_sdp([Paras.XIndOffDiag,Paras.XIndOffDiagCounter]) = ...
           1/2*(DualAffine_sdp([Paras.XIndOffDiag,Paras.XIndOffDiagCounter]) + DualAffine_sdp([Paras.XIndOffDiagCounter,Paras.XIndOffDiag]));
 
-    X_next          = omegat_psd + (DualAffine_sdp)/Paras.alpha;
-    x_next          = omegat_free + (DualAffine_free)/Paras.alpha;
-    DualFeasibility_psd = norm(DualAffine_sdp,'fro')^2;
+    X_next               = omegat_psd + (DualAffine_sdp)/Paras.alpha;
+    x_next               = omegat_free + (DualAffine_free)/Paras.alpha;
+    DualFeasibility_psd  = norm(DualAffine_sdp,'fro')^2;
     DualFeasibility_free = norm(DualAffine_free)^2;
-    DualFeasibility = DualFeasibility_psd + DualFeasibility_free;
-    gap             = abs(Paras.b'*y - Paras.c_sdp.'*X_next-Paras.c_free.'*x_next);
+    DualFeasibility      = DualFeasibility_psd + DualFeasibility_free;
+    gap                  = abs(Paras.b'*y - Paras.c_sdp.'*X_next-Paras.c_free.'*x_next);
 end
