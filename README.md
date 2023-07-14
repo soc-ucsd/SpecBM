@@ -67,4 +67,4 @@ Try `TestSBM.m` to get a better understanding.
 The code requires the installation of [Sedumi](https://sedumi.ie.lehigh.edu/) and [Mosek](https://www.mosek.com/).
 
 # Contact us
-To contact us about SBM, suggest improvements and report bugs, email either [Feng-Yi Liao](mailto:fliao@ucsd.edu?Subject=SBM) or [Yang Zheng](mailto:zhengy@eng.ucsd.edu?Subject=SBM).
+To contact us about SBM, suggest improvements, and report bugs, please email either [Feng-Yi Liao](mailto:fliao@ucsd.edu?Subject=SBM) or [Yang Zheng](mailto:zhengy@eng.ucsd.edu?Subject=SBM).
