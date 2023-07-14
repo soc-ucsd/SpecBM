@@ -11,16 +11,11 @@ function [Wstar,X_next,Gammastar,Sstar,DualFeasibility_psd,DualFeasibility_free,
     kronPtPt = kron(Pt,Pt);
     
     Q11 = Wt.'*Wt;
-    %Q21 = kron(Pt',Pt')*Wt;
-    %Q21 = kronPtPt'*Wt;
     Q12 = Wt.'*kronPtPt;
     Q31 = Paras.At_sdp*Wt;
-    %Paras.Ir2 = kron(eye(Paras.MaxCols),eye(Paras.MaxCols));
-    %Q32 = Paras.At_sdp*kron(Pt,Pt);
     
     %Original strategy
     Q32 = Paras.At_sdp*kronPtPt;
-    
     Q13 = Q31.';
     Q23 = Q32.';
     
