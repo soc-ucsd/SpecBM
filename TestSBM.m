@@ -1,9 +1,9 @@
 %First experiment: small-scale problem.
-%Goal: Show that the primal formulation is better when X^* is 'high' rank 
-%Instance: rank(X^*) = 97
+%Goal: Show that the primal formulation is better when Z^* is 'low' rank 
+%Instance: rank(X^*) = 97 or rank(Z^*) = 3
 
 % The penalty parameter is chosen by the fact that we already know the optimal solution 
-% Penal term is chosen as tr(X^*)*2 and tr(Z^*)*2
+% Penal term is chosen as tr(X^*)*2+2 and tr(Z^*)*2+2
 
 %Authors: Feng-Yi Liao & Yang Zheng
 %         SOC Lab @UC San Diego
