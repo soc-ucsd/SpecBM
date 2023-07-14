@@ -12,9 +12,6 @@ function [Wstar,X_next,Gammastar,Sstar,PrimalFeasibility,gap,G] = Direction_QP_D
             G = Old_G;
     end
 
-    
-
-
     AW1        = Paras.At*Wt;
     M11        = (AW1).'*(AW1);
     kronPTPT   = kron(Pt',Pt');     
@@ -30,7 +27,6 @@ function [Wstar,X_next,Gammastar,Sstar,PrimalFeasibility,gap,G] = Direction_QP_D
     end
   
     m1 = (-Paras.twoATb+2*Paras.alpha*G)'*Wt;
-    %m2 = vec(Pt'*mat(-Paras.twoAb+2*Paras.alpha*G)*Pt);
     m2 = kronPTPT*(-Paras.twoATb+2*Paras.alpha*G);
     M  = [M11,M21.';
          M21,M22];
@@ -48,7 +44,6 @@ function [Wstar,X_next,Gammastar,Sstar,PrimalFeasibility,gap,G] = Direction_QP_D
    %sedumi constraint matrix
   % toc(test)
    
-   %Ir2 = eye(Paras.MaxCols^2);
    At                                             = zeros(1+Paras.MaxCols^2+2,2*Paras.NumOfVar+3);
    At(1:Paras.NumOfVar,2)                         = M05(:,1);
    At(1:Paras.NumOfVar,4+Paras.NumOfVar+1:end)    = M05(:,2:end);

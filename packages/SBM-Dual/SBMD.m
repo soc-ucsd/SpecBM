@@ -10,11 +10,8 @@ function Out = SBMD(At,b,c,K,opts)
     AlgorithmTime = tic;
 
     %Initial point
-    %omegat = ones(opts.m,1); 
     omegat = zeros(opts.m,1); 
     if Paras.adaptive
-        %Paras.alpha = norm(omegat);
-        %Paras.alpha = 1;
         Paras.alpha = 0.5;
     end
     
@@ -30,7 +27,6 @@ function Out = SBMD(At,b,c,K,opts)
     PrimalFeasi       = zeros(opts.Maxiter,1); 
     Gap               = zeros(opts.Maxiter,1);
     RelativeAccry     = zeros(opts.Maxiter,1);
-    %Complementary     = zeros(opts.Maxiter,1);
     NullCount         = 0;
     
     normb             = norm(Paras.b);
@@ -52,10 +48,6 @@ function Out = SBMD(At,b,c,K,opts)
     
     
     for iter = 1:Paras.Maxiter
-        %Master problem
-        %if opts.sparse
-        %    [Wstar,X_next,Gammastar,Sstar,Pfeasi,gap] = Direction_QP_Dual_New(omegat,Paras,Wt,Pt);
-        %else
         if iter == 1
             [Wstar,X_next,Gammastar,Sstar,Pfeasi,gap,Old_G] = Direction_QP_Dual(omegat,Paras,Wt,Pt);
         else
@@ -65,11 +57,8 @@ function Out = SBMD(At,b,c,K,opts)
                 [Wstar,X_next,Gammastar,Sstar,Pfeasi,gap,Old_G] = Direction_QP_Dual(omegat,Paras,Wt,Pt,Old_G);
             end
         end
-        %end
         PrimalFeasi(iter) = Pfeasi;
         Gap(iter)         = gap;
-%         PrimalFeasi = [PrimalFeasi,Pfeasi];
-%         Gap         = [Gap,gap];
         
         
         %Decompose a small matrix
@@ -84,20 +73,8 @@ function Out = SBMD(At,b,c,K,opts)
             Sigma2            = eig_val(Paras.EvecPast+1:end,Paras.EvecPast+1:end);
         end
         
-        %Stopping criteria
-%         Omegat_sdp = Paras.At'*omegat-Paras.c;% A^t y - C;
-%         if issymmetric(Omegat_sdp)
-%             if  DescentFlag == true 
-% 
-%             else
-%                 
-%             end
-%         else
-%             warning('A^t-C Not Symmetric');
-%         end
 
         Z_current = Paras.At'*omegat-Paras.c;
-        %f1 = Paras.rho*max([eig(mat(Paras.At'*omegat-Paras.c));0])-Paras.b'*omegat;
 
         if DescentFlag == true 
             if iter == 1
@@ -110,12 +87,7 @@ function Out = SBMD(At,b,c,K,opts)
             f1 = f1_Old;
         end
 
-        
-        
-        %f2 = (Paras.At'*X_next-Paras.c)'*(Gammastar*Wt+vec(Pt*Sstar*Pt'))-Paras.b'*X_next;
         Z_next    = Paras.At'*X_next-Paras.c;
-        %f2 = (Paras.At'*X_next-Paras.c)'*(Wstar)-Paras.b'*X_next;
-
 
         b_inner_X_next = -Paras.b'*X_next;% -b^{t}X_next
         f2 = b_inner_X_next+(Z_next)'*(Wstar);
@@ -128,19 +100,7 @@ function Out = SBMD(At,b,c,K,opts)
             fprintf('f1-f2 = %.6f',EstimatedDrop);
             break;
         end
-%         elseif RelativeAccuracy < Paras.epislon
-%             Obj(iter)           = f1;
-%             DualSemiFeasi(iter) = eig_val(I(1),I(1));
-% %             Obj       = [Obj,f1];
-% %             DualFeasi = [DualFeasi,eig_val(I(1),I(1))];
-%             break;
-%         end
-        
-        %Serious Step or Null Step
-        %f3        = Paras.rho*max([eig(mat(Paras.At'*X_next-Paras.c));0])-Paras.b'*X_next;
 
-
-        %[eig_vec,eig_val] = eig(reshape(Z_next,Paras.n,Paras.n));
         [eig_vec,eig_val] = eig(mat(Z_next));
         [eigval,I]        = sort(diag(eig_val),'descend');
         f3                = b_inner_X_next+Paras.rho*max([eigval(1);0]);
@@ -153,8 +113,6 @@ function Out = SBMD(At,b,c,K,opts)
         Vt                = eig_vec(:,1:Paras.EvecCurrent);
         
         CostDrop  = f1 - f3;
-        %Threshold = f1-Paras.beta*(f1-f2);
-        %if f3 <= Threshold
         if Paras.beta*EstimatedDrop <= CostDrop
             %serious step
             omegat = X_next;
@@ -176,9 +134,6 @@ function Out = SBMD(At,b,c,K,opts)
             DescentFlag = false;
         end
 
-
-
-        
         %Update Wt and Pt
         if Paras.EvecPast ~= 0 
             if Gammastar< 0 
@@ -189,20 +144,6 @@ function Out = SBMD(At,b,c,K,opts)
             Wt = reshape(Wstar,[],1)/trace(mat(Wstar));
         end
         
-        %improve numerical stability
-%         Wt([Paras.XIndOffDiag,Paras.XIndOffDiagCounter]) = ...
-%             1/2*(Wt([Paras.XIndOffDiag,Paras.XIndOffDiagCounter]) + Wt([Paras.XIndOffDiagCounter,Paras.XIndOffDiag]));
-        
-        
-%         [eig_vec,eig_val]   = eig(mat(At'*X_next-c));
-%         [~,I]               = sort(diag(eig_val),'descend');
-%         DualSemiFeasi(iter) = -eig_val(I(1),I(1));
-%         RelativeAccry(iter) = RelativeAccuracy;
-%         
-%         eig_vec             = eig_vec(:,I);
-%         Vt                  = eig_vec(:,1:Paras.EvecCurrent);  
-
-
         if Paras.EvecPast ~= 0
             %[Pt,~]          = qr([Pt*Q1,Vt],0);
             Pt              = orth([Pt*Q1,Vt]);
@@ -210,28 +151,15 @@ function Out = SBMD(At,b,c,K,opts)
             Pt              = Vt;
         end
         Obj(iter)           = f1;
-        %Complementary(iter) = (c_sdp-A_sdp.'*omegat).'*Wt;
-        %Obj               = [Obj,f1];        
-        
-%        RelativePFeasi     = norm(A_sdp*Wstar - b_sdp)/(1+normb);
-        %RelativeDFeasi     = norm(c_sdp-A_sdp.'*omegat-)/(1+normC);
- %       RelativeGap        = gap/(1+abs(c_sdp.'*Wstar)+abs(b_sdp.'*omegat));
-        
+
 
         RelativePFeasi     = norm(Paras.At*Wstar - Paras.b)/(1+normb);
-%         if norm(Paras.c_free)~= 0
-%             RelativeDFeasi = max(sqrt(Dfeasi)/(1+normC),sqrt(Dfeasi_free)/(1+normc_free));
-%         else
-%             RelativeDFeasi = sqrt(Dfeasi)/(1+normC);
-%         end
         RelativeGap        = gap/(1+abs(Paras.c.'*Wstar)+abs(Paras.b.'*omegat));
      
-        %Out.RelativeDFeasi(iter) = RelativeDFeasi;
         Out.RelativeGap(iter)    = RelativeGap;
         Out.RelativePFeasi(iter) = RelativePFeasi;
         if DescentFlag 
             Out.DescentCost(DescentCount)           = Obj(iter);
-            %Out.DescentRelativeDFeasi(DescentCount) = RelativeDFeasi;
             Out.DescentRelativePFeasi(DescentCount) = RelativePFeasi;
             Out.DescentRelativeGap(DescentCount)    = RelativeGap;
             Out.DescentDualSemiFeasi(DescentCount)  = DualSemiFeasi(iter);
@@ -247,7 +175,6 @@ function Out = SBMD(At,b,c,K,opts)
                 %Move to this new point
                 Out.DescentDualSemiFeasi(DescentCount)   = DualFeasi(iter);
                 Out.DescentCost(DescentCount)            = f3;%Paras.c.'*omegat - Paras.rho*min([eig(Omegat_sdp);0]);
-                %Out.DescentRelativeDFeasi(DescentCount)  = RelativeDFeasi;
                 Out.DescentRelativePFeasi(DescentCount)  = RelativePFeasi;
                 Out.DescentRelativeGap(DescentCount)     = RelativeGap;
                 Out.X                                    = Wstar;
@@ -274,11 +201,6 @@ function Out = SBMD(At,b,c,K,opts)
     Out.Iter          = iter;
     Out.PastEvec      = opts.EvecPast;
     Out.EvecCurrent   = opts.EvecCurrent;
-    %Out.Complementary = Complementary;
-%     Out.X             = Wstar;
-%     Out.y             = omegat;
-
-
     Out.DescentCount   = DescentCount-1;
 
     % Print summary
@@ -287,7 +209,6 @@ function Out = SBMD(At,b,c,K,opts)
         fprintf(myline1);
         fprintf(' SOLUTION SUMMARY:\n');
         fprintf('------------------\n');
-        %fprintf(' Termination code     : %11.1d\n',info.problem)
         fprintf(' Number of iterations : %11.d\n',iter);
         fprintf(' Cost                 : %11.4e\n',Out.DescentCost(end));
         fprintf(' Relative cost gap    : %11.4e\n',Out.DescentRelativeGap(end));
@@ -295,9 +216,7 @@ function Out = SBMD(At,b,c,K,opts)
         fprintf(' Dual residual        : %11.4e\n',0);
         fprintf(' Prepros time   (s)   : %11.4e\n',Out.PreprosTime);
         fprintf(' SBMP  time   (s)     : %11.4e\n',Out.MainAlgTime);
-        %fprintf(' Avg. conic proj (s)  : %11.4e\n',info.time.subiter(2)./iter)
         fprintf(' Avg. master prob (s) : %11.4e\n',Out.MainAlgTime./iter);
-        %fprintf(' Cleanup time (s)     : %11.4e\n',posttime)
         fprintf(' Total time   (s)     : %11.4e\n',Out.PreprosTime+Out.MainAlgTime);
         fprintf(myline1)
     end
@@ -345,13 +264,6 @@ function [Paras,OutOption] = Initialize(At,b,c,K,opts)
         Paras.Maxiter     = 500;% default
     end
 
-
-%     IndicesAll       = BIGPSDpositionAll(opts.n,opts.dx);%The nonzero indices in a n x n matrix (including lower and upper)
-%     Indices          = BIGPSDposition(opts.n,opts.dx); %The nonzero indices in a n x n matrix (only symmetric part)
-%     Paras.IndicesAll = IndicesAll;
-%     Paras.Indices    = Indices;
-%    Paras.Maxiter    = opts.Maxiter;
-%     Paras.dx         = opts.dx;
     Paras.n          = opts.n;
     Paras.m          = opts.m;
     
@@ -391,13 +303,6 @@ function [Paras,OutOption] = Initialize(At,b,c,K,opts)
     else
         Paras.adaptive = true;%default
     end
-
-    %Paras.alphamax   = 1000;  %for adapative 
-    
-%     Paras.n_new = 2*Paras.dx;
-%     Paras.NumOfVar_new = Paras.n_new^2;
-%     Paras.NumOfVar_new_sym = Paras.n_new*(Paras.n_new+1)/2;
-%     Paras.NumOfP = nchoosek(Paras.n/Paras.dx,2);%Number of Blocks
     
     [At,b,c,K,opts] = checkInputs(At,b,c,K,opts);
 
@@ -421,22 +326,9 @@ function [Paras,OutOption] = Initialize(At,b,c,K,opts)
     Paras.XIndOffDiagCounter = XIndOffDiagCounter;
     
     %Some Operators in the master problem
-    %Paras.ATA      = Paras.At_sdp'*Paras.At_sdp;
     Paras.NumOfVar = 1+Paras.MaxCols^2;
     Paras.twoATb    = 2*Paras.At'*Paras.b; %2*A.'*b
     
-    
-%     %Non-zero elements
-%     Paras.sparse              = opts.sparse;
-%     if Paras.sparse
-%         [row,idx,val]             = find(Paras.At_sdp);
-%         Paras.At_sdp_nonzero.row  = row;
-%         Paras.At_sdp_nonzero.idx  = idx;
-%         Paras.At_sdp_nonzero.val  = val;
-%         [r,c]                     = ind2sub([Paras.n,Paras.n],idx);
-%         Paras.At_sdp_nonzero.Mrow = r;
-%         Paras.At_sdp_nonzero.Mcol = c;
-%     end
 
     %Output option
     OutOption.verbose = 1;
