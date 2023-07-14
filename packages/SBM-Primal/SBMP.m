@@ -1,4 +1,4 @@
-function Out = Copy_of_SBMP(At,b,c,K,opts)
+function Out = SBMP(At,b,c,K,opts)
     % Spectral Bundle Method - Primal Formulation
     % Authors: Feng-Yi Liao & Yang Zheng
     %          SOC Lab @UC San Diego
