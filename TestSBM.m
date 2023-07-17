@@ -9,9 +9,9 @@
 %         SOC Lab @UC San Diego
  
 clc;clear;
-addpath('.\packages\SBM-Primal');
-addpath('.\packages\SBM-Dual');
-addpath('.\packages\General');
+addpath('packages\SBM-Primal');
+addpath('packages\SBM-Dual');
+addpath('packages\General');
 filename = "n100m100dr3";
 load("examples\randomSDPs\"+filename+".mat");
 
