@@ -11,10 +11,10 @@ To access large-scale data, please visit [Google drive](https://drive.google.com
 ## Table of Content
 
 - [Description](#description)
-	- [SBMP](#SBMP)
-	- [SBMD](#SBMD)
-- [Quick Start](#Quick-Start)
-- [Dependency](#Dependency)
+	- [SBMP](#sBMP)
+	- [SBMD](#sBMD)
+- [Quick Start](#quick-Start)
+- [Dependency](#dependency)
 
 # Description
 
