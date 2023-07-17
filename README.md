@@ -59,7 +59,7 @@ To run SBMP or SBMD, use the commands
 	opts.solver      = "primal";           %Primal or Dual Spectral Bundle Method
 	Out_Primal_1_1   = SBM(At,b,c,K,opts); %Run
 
-The parameter `opts.rho` should be chosen correctly as discussed in [SBMP](#SBMP) and [SBMD](#SBMD)!
+The parameter `opts.rho` should be chosen correctly as discussed in [SBMP](#sbmp) and [SBMD](#sbmd)!
 
 Try `TestSBM.m` to get a better understanding.
 
