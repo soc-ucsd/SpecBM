@@ -25,14 +25,6 @@ for num = 1
                 end
                 f = f + sum(x).^2;
                 function_name = "Rosenbrock";
-            elseif function_number ==3 % "Quartic"
-                for i = 1:N
-                    for j = i:N
-                        f = f + x(i)*x(j) + x(i)^2*x(j) - x(j)^3 - x(i)^2*x(j)^2;
-                    end
-                end
-                %f = f + sum(x).^2;
-                function_name = "Quartic";
             elseif function_number ==4 % "random" 
                 rng('default');
                 c = randn(nchoosek(n+4,n),1);
