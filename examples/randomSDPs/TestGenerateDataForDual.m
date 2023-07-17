@@ -4,15 +4,13 @@ addpath('..\..\packages\General');
 
 for s = [10]
     fprintf("s = %d in action\n",s);
-%     n  = 3000; 
-%     m  = 100; 
     n = s*10;%dimension of X
-    m = s*2;%number of affine constraints
-    for dr = [997,995]%rank of Z
-        %dr = 3;
+    m = n;%number of affine constraints
+    for dr = [3]%rank of Z
         [At_sdp,b_sdp,c_sdp,X_sdp,y_sdp]= Generate_SDP_Problems_ForDual(n,m,n-dr);
         K_sdp.s = n;
-        
+
+%To solve the problem by Mosek, please uncomment the following chunk        
 %         res = SolveMosek(At_sdp,b_sdp,c_sdp,K_sdp); 
 %         X = zeros(n);
 %         [symidx]=SymmetricIndices(n,false);
@@ -23,6 +21,7 @@ for s = [10]
 %         TrZ           = trace(mat(Z));
 %         Optimal.TrX   = TrX;
 %         Optimal.TrZ   = TrZ;
+
         Optimal.X_sdp = X_sdp;
         Optimal.y_sdp = y_sdp;
         Optimal.TrX   = trace(X_sdp);
