@@ -12,8 +12,8 @@ To access large-scale data, please visit [Google drive](https://drive.google.com
 
 - [Description](#description)
 	- [SBMP](#sbmp)
-	- [SBMD](#sBMD)
-- [Quick Start](#quick-Start)
+	- [SBMD](#sbmd)
+- [Quick Start](#quick-start)
 - [Dependency](#dependency)
 
 # Description
