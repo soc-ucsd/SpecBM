@@ -1,5 +1,5 @@
 function [At,C,Ats,Cs] = svecData_original(At,C,K)
-
+% Copy from https://github.com/oxfordcontrol/CDCS/blob/master/packages/%2Bcdcs_utils/svecData.m
 % SVECDATA.m
 %
 % Transform data from vectorize format to svectorized format for semidefinite
