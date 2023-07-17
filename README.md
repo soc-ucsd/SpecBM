@@ -10,7 +10,7 @@ To access large-scale data, please visit [Google drive](https://drive.google.com
 
 ## Table of Content
 
-- [Description](#Description)
+- [Description](#description)
 	- [SBMP](#SBMP)
 	- [SBMD](#SBMD)
 - [Quick Start](#Quick-Start)
