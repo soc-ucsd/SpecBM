@@ -1,8 +1,8 @@
 %Generate POP with a unit sphere constraint
 clc; clear;
 
-for num = 1
-    for n = [20]
+for num = 1 %function number
+    for n = [20] %dimension of the variable
         function_number = num;
         for z = 1:length(n)
             N = n(z);
@@ -25,7 +25,7 @@ for num = 1
                 end
                 f = f + sum(x).^2;
                 function_name = "Rosenbrock";
-            elseif function_number ==4 % "random" 
+            elseif function_number ==3 % "random" 
                 rng('default');
                 c = randn(nchoosek(n+4,n),1);
                 v = monolist(x,4);
@@ -43,7 +43,7 @@ for num = 1
             h = h - R;
             degree = 5;
             option.name = function_name + '_sphere' + num2str(N) + '_R' + num2str(R);
-            findbound_modify(f,[],h,degree,option);
+            findbound_modify(f,[],h,degree,option); %This function is an adaption from SOSTOOLS
         end
     end
 end
