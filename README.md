@@ -1,5 +1,6 @@
 # SpecBM
 Spectral Bundle Method (SBM) - Primal and Dual formulations (SBMP and SBMD).
+The algrotithms are described in our paper [An Overview and Comparison of Spectral Bundle Methods for Primal and Dual Semidefinite Programs](https://arxiv.org/pdf/2307.07651.pdf)
 
 Note: parts of the code require the installation of [Sedumi](https://sedumi.ie.lehigh.edu/) and [Mosek](https://www.mosek.com/).
 
